@@ -10,7 +10,7 @@ class User(models.Model):
 
 
 class Player(models.Model):
-    user = model.ForeignKey('User', unique = True)
+    user = model.OneToOneField('User', unique = True)
     profile_picture = model.ImageField(height_field=none, width_field=none ,max_length=100)
     games_played = model.IntegerField()
     most_days_survived = model.IntegerField()
