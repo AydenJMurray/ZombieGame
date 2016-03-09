@@ -4,4 +4,11 @@
 
 {% block body_block %}
 <h1> Zombie Game </h1>
+<div >
+<a href="{% url 'login' %}"><button class="btn btn-lg btn-primary " type="login" value="login" style="height:100px;width:400px">Login</button></a>
+</div>
+<div>
+<a href="{% url 'login' %}"><button class="btn btn-lg btn-primary " type="login" value="login" style="height:100px;width:400px">Play</button></a>
+</div>
+
 {% endblock %}
