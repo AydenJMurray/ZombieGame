@@ -23,17 +23,6 @@ class Player(models.Model):
     def __unicode__(self):
         return self.user.username
 
-
-
-
-class Acheivement(models.Model):
-    player = model.ForeignKey('Player')
-    badge = model.ForeignKey('Badge')
-    date_awarded = model.TimeField(auto_now_add=True)
-    class Meta:
-        unique_together = (('player','badge'))
-
-
 class Badge(models.Model):
     name = model.CharField(max_length=128)
     description = model.CharField(max_length=64)
@@ -44,3 +33,13 @@ class Badge(models.Model):
     
     class Meta:
         unique_together = (('name','level'))
+
+
+class Acheivement(models.Model):
+    player = model.ForeignKey('Player')
+    badge = model.ForeignKey('Badge')
+    date_awarded = model.TimeField(auto_now_add=True)
+    class Meta:
+        unique_together = (('player','badge'))
+
+
