@@ -13,8 +13,12 @@ class User(models.Model):
 
 class Player(models.Model):
     user = models.OneToOneField('User', unique = True)
-    profile_picture = models.ImageField(height_field=none, width_field=none ,max_length=100)
+
+#<<<<<<< HEAD
+    profile_picture = models.ImageField(height_field=None, width_field=None ,max_length=100)
+#=======
     profile_picture = models.ImageField(max_length=100)
+
     games_played = models.IntegerField()
     most_days_survived = models.IntegerField()
     most_kills = models.IntegerField()
@@ -32,11 +36,17 @@ class Badge(models.Model):
     criteria = models.IntegerField()
     badge_type = models.CharField(max_length = 10)
     level = models.CharField(max_length = 10)
-    icon = models.ImageField(height_field=none, width_field=none ,max_length=100)
+
+#<<<<<<< HEAD
+    icon = models.ImageField(height_field=None, width_field=None ,max_length=100)
+#=======
     icon = models.ImageField(max_length=100)
+
     
     class Meta:
         unique_together = (('name','level'))
+
+
 
 
 
