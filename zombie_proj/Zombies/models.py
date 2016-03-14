@@ -1,32 +1,28 @@
 
-
+from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class User(models.Model):
-    user = models.OneToOneField(User)
+#class User(models.Model):
+    #user = models.OneToOneField(User)
     
-    def __unicode__(self):
-        return self.user.username
+    #def __unicode__(self):
+        #return self.user.username
 
 
 class Player(models.Model):
-    user = models.OneToOneField('User', unique = True)
-
-#<<<<<<< HEAD
-    profile_picture = models.ImageField(height_field=None, width_field=None ,max_length=100)
-#=======
-    profile_picture = models.ImageField(max_length=100)
-
-    games_played = models.IntegerField()
-    most_days_survived = models.IntegerField()
-    most_kills = models.IntegerField()
-    most_people = models.IntegerField()
-    avg_days = models.DecimalField(max_digits = 5, decimal_places = 1)
-    avg_kills = models.DecimalField(max_digits = 5, decimal_places = 1)
-    avg_people = models.DecimalField(max_digits = 5, decimal_places = 1)
-    current_game = models.FileField(max_length = 100)
+    user = models.OneToOneField(User)
+    
+    profile_picture = models.ImageField(upload_to='profile_images', blank=True)
+    games_played = models.IntegerField(blank=True, null=True)
+    most_days_survived = models.IntegerField(blank=True, null=True)
+    most_kills = models.IntegerField(blank=True, null=True)
+    most_people = models.IntegerField(blank=True, null=True)
+    avg_days = models.DecimalField(max_digits = 5, decimal_places = 1,blank=True, null=True)
+    avg_kills = models.DecimalField(max_digits = 5, decimal_places = 1,blank=True, null=True)
+    avg_people = models.DecimalField(max_digits = 5, decimal_places = 1,blank=True, null=True)
+    current_game = models.FileField(max_length = 100,blank=True, null=True)
     def __unicode__(self):
         return self.user.username
 
@@ -36,10 +32,7 @@ class Badge(models.Model):
     criteria = models.IntegerField()
     badge_type = models.CharField(max_length = 10)
     level = models.CharField(max_length = 10)
-
-#<<<<<<< HEAD
     icon = models.ImageField(height_field=None, width_field=None ,max_length=100)
-#=======
     icon = models.ImageField(max_length=100)
 
     
@@ -57,3 +50,5 @@ class Achievement(models.Model):
     class Meta:
         unique_together = (('player','badge'))
 
+admin.site.unregister(User)
+admin.site.register(User, Player)

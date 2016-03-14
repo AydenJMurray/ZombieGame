@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from Zombies.forms import UserForm
-from django.contrib.auth import authenticate, login
+from Zombies.forms import UserForm, PlayerForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -31,18 +32,30 @@ def register(request):
     
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
+        player_form = PlayerForm(data=request.POST)
         
-        if user_form.is_valid():
+        if user_form.is_valid() and player_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-        
+            player = player_form.save()
+            player.user = user
+            
+            if 'picture' in request.FILES:
+                player.profile_picture = request.FILES['profile_picture']
+            profile.save()
             registered = True
         else:
-            print user_form.errors
+            print user_form.errors,player_form.errors
     else:
         user_form = UserForm()
+        player_form = PlayerForm()
         
     return render(request,
     'Zombies/registration.html',
-    {'user_form': user_form, 'registered':registered})
+    {'user_form': user_form, 'player_form':player_form ,'registered':registered})
+    
+@login_required
+def user_logout(request): 
+    logout(request)
+    return HttpResponseRedirect('/Zombies/')
