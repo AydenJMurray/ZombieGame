@@ -2,6 +2,8 @@
 from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
+
 
 # Create your models here.
 #class User(models.Model):
@@ -12,7 +14,7 @@ from django.contrib.auth.models import User
 
 
 class Player(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
     games_played = models.IntegerField(blank=True, null=True)
     most_days_survived = models.IntegerField(blank=True, null=True)
