@@ -13,7 +13,6 @@ from django.contrib.auth.models import User
 
 class Player(models.Model):
     user = models.OneToOneField(User)
-    
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
     games_played = models.IntegerField(blank=True, null=True)
     most_days_survived = models.IntegerField(blank=True, null=True)
@@ -50,5 +49,4 @@ class Achievement(models.Model):
     class Meta:
         unique_together = (('player','badge'))
 
-admin.site.unregister(User)
-admin.site.register(User, Player)
+
