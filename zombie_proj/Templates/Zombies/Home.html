@@ -10,7 +10,7 @@
 
 		<div class="col-md-3">
 			{% if user.is_authenticated %}
-				<p>Welcome {{ user.username }}, view your profile here! (link at some point)</p>
+				<p>Welcome {{ user.username }}, view your profile <a href=/Zombies/user/{{ user.username }}/>Profile</a>! </p>
 				<a href="{% url 'logout' %}">Log Out</a>
 
 			{% else %}
