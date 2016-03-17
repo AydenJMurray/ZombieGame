@@ -2,26 +2,61 @@
 
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load gravatar %}
 {% block title %} Welcome to Zombie Game{% endblock %}
 
 {% block body_block %}
-<div class="container-fluid">
+<style type="text/css">
+    .alignleft
+{
+    float:left;
+}
+    .clear {
+    clear: both;
+}
 
 
-	<div class="row">
-		<div class="col-md-3">
-			{% if user.is_authenticated %}
-				GRAVATAR STUFF CAN GO HERE
-			{% else %}
-				<p><a href="{% url 'login' %}">LOGIN</a>  / <a href="{% url 'register' %}">SIGN UP</a></p> 
-			{% endif %}
-		</div>
-		<div class = "col-md-2 col-xs-offset-2">
-			<h1 class="text-danger"> Welcome to {{user_username}}'s profile. </h1>
-			<h2 class="text-danger"> email:{{user_email}}//games played:{{user_games_played}}//average days:{{user_avg_days}}//most days: {{user_most_days}}  </h2>
-		</div>
-	</div>
+</style>
+<div id = "w" >
+    <h2> {{ user.username }}'s Profile </h2>
+    <div id="userphoto"class = "alignleft">{{user.email|gravatar:150}}</div>
+    <section id="totalbadges">
+      <a href="#"><img src="images/gold.png" width="40" height="40">1</a>
+      <a href="#"><img src="images/silver.png" width="40" height="40">3</a>
+      <a href="#"><img src="images/bronze.png" width="40" height="40">4</a>
+    </section>
+    <select size="5" style="width:200px">
+        <option value="1">Games Played: </option>
+        <option value="2">Total Kills: </option>
+        <option value="3">Total Deaths: </option>
+        <option value="4">Longest Survived: </option>
+        <option value="5">Item #5</option>
+        <option value="6">Item #6</option>
+        <option value="7">Item #7</option>
+    </select>
 
+    <section id="friends"class="clear caption">
+        <p>Friends:</p>
+        <ul id="friendslist">
+          <a href="#"><img src="images/avatar.png" width="40" height="40">Username1</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">Username2</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">Username3</a>
+          <button id="addfriend" data-profileid="{{currUser.username}}" class="btn btn-primary" type="button"> <span class="glyphicon glyphicon-plus"></span>
+        Add Friend</button> <!-- no javascript yet -->
+      </section>
+
+      <section id="badges">
+        <p>Badges:</p>
+        <ul id="badgelist">
+          <a href="#"><img src="images/avatar.png" width="40" height="40">badgename1</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">badgename2</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">badgename3</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">badgename4</a>
+
+        </ul>
+      </section>
 
 </div>
+
+
 {% endblock %}
