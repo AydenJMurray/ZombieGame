@@ -3,13 +3,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 from Zombies.forms import UserForm, PlayerForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from Zombies.models import Player
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'Zombies/Home.html',{})
+	
+    kills_list = Player.objects.order_by("-most_kills")[:5]
+    days_survived_list = Player.objects.order_by("-most_days_survived")[:5]
+    rank_list = [1, 2, 3, 4, 5]
+    context_dict={'rank_list':rank_list,'kills_board':kills_list, 'survival_board':days_survived_list}
+    return render(request, 'Zombies/Home.html', context_dict)
     
-    
+def game_page(request):
+    return HttpResponse("Game goes here")
+
+def leaderboard(request):
+
+    return HttpResponse("Leaderboards go here soon")
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -54,7 +65,8 @@ def register(request):
     return render(request,
     'Zombies/registration.html',
     {'user_form': user_form, 'player_form':player_form ,'registered':registered})
-    
+
+
 @login_required
 def user_logout(request): 
     logout(request)

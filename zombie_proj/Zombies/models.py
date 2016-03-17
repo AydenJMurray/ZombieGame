@@ -27,6 +27,7 @@ class Player(models.Model):
     def __unicode__(self):
         return self.user.username
 
+		
 class Badge(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=64)
@@ -35,13 +36,9 @@ class Badge(models.Model):
     level = models.CharField(max_length = 10)
     icon = models.ImageField(height_field=None, width_field=None ,max_length=100)
     icon = models.ImageField(max_length=100)
-
-    
+ 
     class Meta:
         unique_together = (('name','level'))
-
-
-
 
 
 class Achievement(models.Model):
@@ -51,4 +48,5 @@ class Achievement(models.Model):
     class Meta:
         unique_together = (('player','badge'))
 
+	
 
