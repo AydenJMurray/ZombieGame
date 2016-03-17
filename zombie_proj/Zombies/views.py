@@ -4,6 +4,7 @@ from Zombies.forms import UserForm, PlayerForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from Zombies.models import Player
+from scripts.main import *
 
 # Create your views here.
 
@@ -71,3 +72,9 @@ def register(request):
 def user_logout(request): 
     logout(request)
     return HttpResponseRedirect('/Zombies/')
+    
+    
+def start(request):
+    g = Game()
+    return render(request, 'Zombies/game_page.html',{})
+    
