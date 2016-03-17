@@ -20,11 +20,13 @@
 <div id = "w" >
     <h2> {{ user.username }}'s Profile </h2>
     <div id="userphoto"class = "alignleft">{{user.email|gravatar:150}}</div>
+    
     <section id="totalbadges">
-      <a href="#"><img src="images/gold.png" width="40" height="40">1</a>
-      <a href="#"><img src="images/silver.png" width="40" height="40">3</a>
-      <a href="#"><img src="images/bronze.png" width="40" height="40">4</a>
+      <img src="/static/images/gold.png" width="40" height="40"/>1
+      <img src="/static/images/silver.png" width="40" height="40">3
+      <img src="/static/images/bronze.png" width="40" height="40">4
     </section>
+    
     <select size="5" style="width:200px">
         <option value="1">Games Played: </option>
         <option value="2">Total Kills: </option>
