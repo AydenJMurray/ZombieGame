@@ -79,5 +79,17 @@ def start(request):
     return render(request, 'Zombies/game_page.html',{})
     
 def userProfile(request, user_name):
-    return render(request, 'Zombies/userProfile.html', {'username':user_name})
+    try:
+        user = User.objects.get(username = user_name)
+        player = Player.objects.get(user = user)
+    except:
+        raise Http404('Requested user not found.')
+    
+    variables = {'user_username':user.username, 'user_email':user.email, 'user_games_played':player.games_played,
+                 'user_most_days':player.most_days_survived,'user_most_kills':player.most_kills, 'user_most_people':player.most_people,
+                 'user_avg_days':player.avg_days, 'user_avg_kills':player.avg_kills, 'user_avg_people':player.avg_people}
+                 
+
+    
+    return render(request, 'Zombies/userProfile.html', variables)
     
