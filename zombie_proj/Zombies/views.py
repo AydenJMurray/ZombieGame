@@ -64,7 +64,7 @@ def register(request):
         player_form = PlayerForm()
         
     return render(request,
-    'Zombies/registration.html',
+    'Zombies/registration_form.html',
     {'user_form': user_form, 'player_form':player_form ,'registered':registered})
 
 

@@ -42,8 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
     'Zombies',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (

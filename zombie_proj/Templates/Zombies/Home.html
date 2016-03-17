@@ -14,7 +14,7 @@
 				<a href="{% url 'logout' %}">Log Out</a>
 
 			{% else %}
-				<p><a href="{% url 'login' %}">LOGIN</a>  / <a href="{% url 'register' %}">SIGN UP</a></p>
+				<p><a href="{% url 'login' %}">LOGIN</a>  / <a href="{% url 'registration_register' %}">SIGN UP</a></p>
 			{% endif %}
 		</div>
 		<div class = "col-md-2 col-xs-offset-2">
@@ -39,7 +39,7 @@
 					<tr>
 						<td> </td>
 						<td>{{ kills.user }}</td>
-						<td>{{ kills.most_kills }}</td>
+						<td>{{ kills.most_kills }} kills</td>
 					</tr>
 					{% endfor %}
 				</table>
@@ -58,6 +58,7 @@
 					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Leaderboards</a>
 				{% else %}
 					<a href="{% url 'login' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
+					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Leaderboards</a>
 				{% endif %}
 		</div>
 		</div>
@@ -78,7 +79,7 @@
 					<tr>
 						<td> </td>
 						<td>{{ days.user }}</td>
-						<td>{{ days.most_days_survived }}</td>
+						<td>{{ days.most_days_survived }} days</td>
 					</tr>
 					{% endfor %}
 				</table>
