@@ -78,3 +78,6 @@ def start(request):
     g = Game()
     return render(request, 'Zombies/game_page.html',{})
     
+def userProfile(request, user_name):
+    return render(request, 'Zombies/userProfile.html', {'username':user_name})
+    
