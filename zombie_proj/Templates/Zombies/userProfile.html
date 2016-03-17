@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} Welcome to Zombie Game{% endblock %}
+
+{% block body_block %}
+<div class="container-fluid">
+
+
+	<div class="row">
+		<div class="col-md-3">
+			{% if user.is_authenticated %}
+				GRAVATAR STUFF CAN GO HERE
+			{% else %}
+				<p><a href="{% url 'login' %}">LOGIN</a>  / <a href="{% url 'register' %}">SIGN UP</a></p> 
+			{% endif %}
+		</div>
+		<div class = "col-md-2 col-xs-offset-2">
+			<h1 class="text-danger"> Welcome to users profile, PUT photo and name here? 22</h1>
+			<h2 class="text-danger"> All the data and the stats of user can go here</h2>
+		</div>
+	</div>
+
+
+</div>
+{% endblock %}
