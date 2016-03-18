@@ -75,10 +75,16 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/Zombies/')
     
+def game_page(request):
+    return render(request, 'Zombies/game_page.html',{})
+
     
 def start(request):
     g = Game()
-    return render(request, 'Zombies/game_page.html',{})
+    player_state = g.player_state
+    game_state = g.game_state
+        
+    return render(request, 'Zombies/start.html',{'player_state': player_state, 'game_state': game_state})
     
 def userProfile(request, user_name):
     try:
