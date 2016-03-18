@@ -68,7 +68,7 @@
 		<div class = "col-md-4 col-xs-offset-4">
 		<div class="btn-group-vertical btn-group-lg">
 				{% if user.is_authenticated %}
-					<a href="{% url 'game_page' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
+					<a href="{% url 'start' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
 					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Leaderboards</a>
 				{% else %}
 					<a href="{% url 'auth_login' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
