@@ -1,5 +1,7 @@
 $(document).ready(function() {
-
-        // JQuery code to be added in here.
+    
+    $("#day-btn").click(function(){
+        start_new_day(g);
+    })
 
 });
