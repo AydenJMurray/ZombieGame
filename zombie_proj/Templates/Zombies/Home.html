@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+
 {% block title %} Welcome to Zombie Game{% endblock %}
 
+{% block include %}
+ 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+	<link href="{% static 'css/rowNumbers.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body_block %}
+
+
+
 <div class="container-fluid">
 
 
@@ -32,16 +42,20 @@
 			<div>
 				{% if kills_board %}
 				<table class="table table-bordered">
-					<th> </th>
-					<th>Username</th>
-					<th># of Kills</th>
-					{% for kills in kills_board %}
-					<tr>
-						<td> </td>
-						<td>{{ kills.user }}</td>
-						<td>{{ kills.most_kills }} kills</td>
-					</tr>
-					{% endfor %}
+					<thead>
+						<th> </th>
+						<th>Username</th>
+						<th># of Kills</th>
+					</thead>
+					<tbody>
+						{% for kills in kills_board %}
+						<tr>
+							<td> </td>
+							<td>{{ kills.user }}</td>
+							<td>{{ kills.most_kills }} kills</td>
+						</tr>
+						{% endfor %}
+					</tbody>
 				</table>
 				{% else %}
 					<strong> --     -- </strong>
@@ -71,17 +85,25 @@
 			</div>
 			<div>
 				{% if survival_board %}
-				<table class="table table-bordered">
-					<th> </th>
-					<th>Username</th>
-					<th># of Days Survived</th>
-					{% for days in survival_board %}
-					<tr>
-						<td> </td>
-						<td>{{ days.user }}</td>
-						<td>{{ days.most_days_survived }} days</td>
-					</tr>
-					{% endfor %}
+
+				<table class="table table-bordered numbered">
+					<thead>
+						<th> </th>
+						<th>Username</th>
+						<th># of Days Survived</th>
+					</thead>
+					<tbody>
+						{% for days in survival_board %}
+						<tr>
+
+							<td> </td>
+
+							<td>{{ days.user }}</td>
+							<td>{{ days.most_days_survived }} days</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+
 				</table>
 				{% else %}
 					<strong> --     -- </strong>

@@ -14,16 +14,25 @@ def home(request):
 	
     kills_list = Player.objects.order_by("-most_kills")[:5]
     days_survived_list = Player.objects.order_by("-most_days_survived")[:5]
-    rank_list = [1, 2, 3, 4, 5]
-    context_dict={'rank_list':rank_list,'kills_board':kills_list, 'survival_board':days_survived_list}
+    context_dict={'kills_board':kills_list, 'survival_board':days_survived_list}
     return render(request, 'Zombies/Home.html', context_dict)
     
 def game_page(request):
     return HttpResponse("Game goes here")
 
 def leaderboard(request):
+     kills = Player.objects.order_by("-most_kills")[:]
+     days = Player.objects.order_by("-most_days_survived")[:]
+     people = Player.objects.order_by("-most_people")[:]
 
-    return HttpResponse("Leaderboards go here soon")
+     allKills = Player.objects.order_by("-kills_all_time")[:]
+     allDays = Player.objects.order_by("-days_all_time")[:]
+     allPeople = Player.objects.order_by("-people_all_time")[:]
+
+     context_dict={'kills':kills, 'days':days, 'people':people, 'allKills':allKills,'allDays':allDays ,'allPeople':allPeople }
+     return render(request, 'Zombies/leaderboards.html', context_dict)
+
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
