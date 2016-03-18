@@ -14,7 +14,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 TEMPLATE_DIRS = (TEMPLATE_PATH,)
 
-
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/Zombies/'
+LOGIN_URL = '/accounts/login/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/

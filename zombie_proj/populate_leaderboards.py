@@ -9,7 +9,13 @@ from Zombies.models import Player
 
 
 def populate():
-
+	
+	add_player(user=add_user("ToniG"),
+				games=42,
+				kills=42,
+				days_survived=42,
+				people=42)
+				
     add_player(user=add_user("Jim"),
                games=3,
                kills=12,
