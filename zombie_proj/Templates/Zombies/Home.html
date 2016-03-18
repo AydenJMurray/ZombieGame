@@ -10,11 +10,11 @@
 
 		<div class="col-md-3">
 			{% if user.is_authenticated %}
-				<p>Welcome {{ user.username }}, view your profile <a href=/Zombies/user/{{ user.username }}/>Profile</a>! </p>
-				<a href="{% url 'logout' %}">Log Out</a>
+				<p>Welcome {{ user.username }}, view your profile <a href=/Zombies/user/{{ user.username }}/>here</a>! </p>
+				<a href="{% url 'auth_logout' %}?next=/Zombies/">Log Out</a>
 
 			{% else %}
-				<p><a href="{% url 'login' %}">LOGIN</a>  / <a href="{% url 'registration_register' %}">SIGN UP</a></p>
+				<p><a href="{% url 'auth_login' %}">LOGIN</a>  / <a href="{% url 'registration_register' %}">SIGN UP</a></p>
 			{% endif %}
 		</div>
 		<div class = "col-md-2 col-xs-offset-2">
@@ -57,7 +57,7 @@
 					<a href="{% url 'game_page' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
 					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Leaderboards</a>
 				{% else %}
-					<a href="{% url 'login' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
+					<a href="{% url 'auth_login' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Play</a>
 					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:400px">Leaderboards</a>
 				{% endif %}
 		</div>

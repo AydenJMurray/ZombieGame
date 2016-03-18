@@ -5,13 +5,10 @@ from registration.backends.simple.views import RegistrationView
 
 
 class MyRegistrationView(RegistrationView):
-	def get_success_url(self, request, user):
-		return '/Zombies/'
+	def get_success_url(self, request):
+		return '/accounts/register/complete/'
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'zombie_proj.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^Zombies/', include('Zombies.urls')),
