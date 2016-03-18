@@ -11,22 +11,38 @@
 {
     float:left;
 }
+    .aligntextcentre
+{
+    text-align: center;
+}
     .clear {
     clear: both;
+}
+    body {
+    overflow: hidden;
+}
+
+
+    #container {
+    border: 8px groove dimgrey;
+    background: aliceblue;
+    display:inline-block;
+
 }
 
 
 </style>
-<div id = "w" >
-    <h2> {{ user.username }}'s Profile </h2>
+<div id = "container" >
+    <h2 class = "aligntextcentre"> {{ user.username }}'s Profile </h2>
     <div id="userphoto"class = "alignleft">{{user.email|gravatar:150}}</div>
-    
+
+
     <section id="totalbadges">
       <img src="/static/images/gold.png" width="40" height="40"/>1
       <img src="/static/images/silver.png" width="40" height="40">3
       <img src="/static/images/bronze.png" width="40" height="40">4
     </section>
-    
+
     <select size="5" style="width:200px">
         <option value="1">Games Played: </option>
         <option value="2">Total Kills: </option>
@@ -37,7 +53,7 @@
         <option value="7">Item #7</option>
     </select>
 
-    <section id="friends"class="clear caption">
+    <section id="friends"class="clear">
         <p>Friends:</p>
         <ul id="friendslist">
           <a href="#"><img src="images/avatar.png" width="40" height="40">Username1</a>
@@ -48,7 +64,7 @@
       </section>
 
       <section id="badges">
-        <p>Badges:</p>
+        <p>Badges{% if user.is_authenticated %}<a href="#">(Edit)</a>:{% endif %}</p>
         <ul id="badgelist">
           <a href="#"><img src="images/avatar.png" width="40" height="40">badgename1</a>
           <a href="#"><img src="images/avatar.png" width="40" height="40">badgename2</a>
