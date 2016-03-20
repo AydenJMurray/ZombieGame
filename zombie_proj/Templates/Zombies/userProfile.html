@@ -33,8 +33,8 @@
 
 </style>
 <div id = "container" >
-    <h2 class = "aligntextcentre"> {{ user.username }}'s Profile </h2>
-    <div id="userphoto"class = "alignleft">{{user.email|gravatar:150}}</div>
+    <h2 class = "aligntextcentre"> {{ user_username }}'s Profile </h2>
+    <div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
 
     <section id="totalbadges">
       <img src="/static/images/gold.png" width="55" height="62.5"/>1
@@ -43,13 +43,16 @@
     </section>
 
     <select size="5" style="width:200px">
-        <option value="1">Games Played: </option>
-        <option value="2">Total Kills: </option>
-        <option value="3">Total Deaths: </option>
-        <option value="4">Longest Survived: </option>
-        <option value="5">Item #5</option>
-        <option value="6">Item #6</option>
-        <option value="7">Item #7</option>
+        <option value="1">Games Played: {{ user_games_played }} </option>
+        <option value="2">Total Kills: {{ user_all_kills }} </option>
+        <option value="3">Total Days: {{ user_all_days }}  </option>
+        <option value="4">Total People: {{ user_all_people }}</option>
+        <option value="5">Most Kills: {{ user_most_kills }} </option>
+        <option value="6">Most Days: {{ user_most_days }} </option>
+        <option value="7">Most People: {{ user_most_people }} </option>
+        <option value="8">Average Kills: {{ user_avg_kills }} </option>
+        <option value="9">Average Days: {{ user_avg_days }} </option>
+        <option value="10">Average People: {{ user_avg_people }} </option>
     </select>
 
     <section id="friends"class="clear">
