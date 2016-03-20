@@ -59,8 +59,7 @@ def userProfile(request, user_name):
                  'user_all_people':player.people_all_time, 
                  'user_avg_days':player.avg_days,
                  'user_avg_kills':player.avg_kills,
-                 'user_avg_people':player.avg_people,
-                 'user_badges':Achievements.objects.get(player=player)}
+                 'user_avg_people':player.avg_people}
                  
 
     
