@@ -4,15 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-
-# Create your models here.
-#class User(models.Model):
-    #user = models.OneToOneField(User)
-    
-    #def __unicode__(self):
-        #return self.user.username
-
-
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -27,17 +18,23 @@ class Player(models.Model):
 
 
     def getAvgDays(self):
-        return self.days_all_time/self.games_played
+        if self.games_played > 0: 
+            return self.days_all_time/self.games_played
+        return 0
 
     def getAvgKills(self):
-        return self.kills_all_time/self.games_played
+        if self.games_played > 0: 
+            return self.kills_all_time/self.games_played
+        return 0
 
     def getAvgPeople(self):
-        return self.people_all_time/self.games_played
+        if self.games_played > 0: 
+            return self.people_all_time/self.games_played
+        return 0
 
-    avgDays = property(getAvgDays)
-    avgKills = property(getAvgKills)
-    avgPeople = property(getAvgPeople)
+    avg_days = property(getAvgDays) 
+    avg_kills = property(getAvgKills) 
+    avg_people = property(getAvgPeople) 
 
     def __unicode__(self):
         return self.user.username
