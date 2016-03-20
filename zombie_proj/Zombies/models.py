@@ -16,14 +16,29 @@ from django.conf import settings
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     profile_picture = models.ImageField(upload_to='profile_images', blank=True)
-    games_played = models.IntegerField(blank=True, null=True)
-    most_days_survived = models.IntegerField(blank=True, null=True)
-    most_kills = models.IntegerField(blank=True, null=True)
-    most_people = models.IntegerField(blank=True, null=True)
-    avg_days = models.DecimalField(max_digits = 5, decimal_places = 1,blank=True, null=True)
-    avg_kills = models.DecimalField(max_digits = 5, decimal_places = 1,blank=True, null=True)
-    avg_people = models.DecimalField(max_digits = 5, decimal_places = 1,blank=True, null=True)
+    games_played = models.IntegerField(default=0)
+    most_days_survived = models.IntegerField(default = 0)
+    most_kills = models.IntegerField(default = 0)
+    most_people = models.IntegerField(default = 0)
+    kills_all_time = models.IntegerField(default=0)
+    days_all_time = models.IntegerField(default=0)
+    people_all_time= models.IntegerField(default=0)
     current_game = models.FileField(max_length = 100,blank=True, null=True)
+
+
+    def getAvgDays(self):
+        return self.days_all_time/self.games_played
+
+    def getAvgKills(self):
+        return self.kills_all_time/self.games_played
+
+    def getAvgPeople(self):
+        return self.people_all_time/self.games_played
+
+    avgDays = property(getAvgDays)
+    avgKills = property(getAvgKills)
+    avgPeople = property(getAvgPeople)
+
     def __unicode__(self):
         return self.user.username
 

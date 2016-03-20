@@ -1,0 +1,17 @@
+table{
+    color:white;
+}
+
+tbody{
+    counter-reset: rowNumber !important;
+    }
+
+tbody tr{
+    counter-increment: rowNumber !important;
+}
+
+tbody tr td:first-child::before{
+    content: counter(rowNumber) !important;
+    min-width: 1em !important;
+    margin-right: 0.5em !important;
+}

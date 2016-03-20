@@ -9,13 +9,7 @@ from Zombies.models import Player
 
 
 def populate():
-	
-	add_player(user=add_user("ToniG"),
-				games=42,
-				kills=42,
-				days_survived=42,
-				people=42)
-				
+
     add_player(user=add_user("Jim"),
                games=3,
                kills=12,
@@ -76,16 +70,20 @@ def populate():
                days_survived=13,
                people=7)
 
-
+    add_player(user=add_user("ToniG"),
+               games=42,
+               kills=42,
+               days_survived=42,
+               people=42)
 
     # Print out what we have added to the user.
     #for p in Player.objects.all():
            # print "- {0} - {1}".format(str(p))
 
 def add_user(username):
-	u = User.objects.get_or_create(username=username)[0]
-	u.save()
-	return u
+    u = User.objects.get_or_create(username=username)[0]
+    u.save()
+    return u
 
 def add_player(user, games, kills, days_survived, people):
     p = Player.objects.get_or_create(user=user, games_played=games, most_kills=kills, most_days_survived=days_survived, most_people=people)[0]
