@@ -1,7 +1,5 @@
 
-from django.contrib import admin
 from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
 
 class Player(models.Model):
@@ -60,5 +58,11 @@ class Achievement(models.Model):
     class Meta:
         unique_together = (('player','badge'))
 
+class Game(models.Model):
+    user = models.ForeignKey('Player')
+    game_state = models.CharField(max_length=128)
+    player_state = models.CharField(max_length=128)
+    street_state = models.CharField(max_length=128)
+    update_state = models.CharField(max_length=128)
 	
 
