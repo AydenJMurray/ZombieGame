@@ -5,3 +5,11 @@ $(document).ready(function() {
     })
 
 });
+
+
+$(document).ready(function(){
+    $("#enter-btn").click(function(){
+        $this.turn();
+    }
+    
+}

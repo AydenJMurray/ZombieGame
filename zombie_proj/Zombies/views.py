@@ -5,8 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from Zombies.models import Player
 from django.contrib.auth.models import User
+import pickle
 
 from scripts.main import *
+from scripts.game import Game
+from scripts.game import PlayerState
 
 # Create your views here.
 
@@ -34,13 +37,39 @@ def leaderboard(request):
     
 def start(request):
     g = Game()
-    g.start_new_day()
-    game_screen = show_game_screen(g) 
+    g.start_new_day() 
+    pps = pickle.dumps(g.player_state)
+    pus = pickle.dumps(g.update_state)
+    ps = pickle.dumps(g.street)
+    game_state = g.game_state
+
+
     player_state = g.player_state
     game_state = g.game_state
     turn_options = g.turn_options()
+    #turn = turn_options(g)
+    
+    
+
+    
+    
+    
+    
+    
+    
         
-    return render(request, 'Zombies/start.html',{'player_state': player_state, 'game_state': game_state,'turn_options': turn_options, 'game_screen':game_screen})
+    return render(request, 'Zombies/start.html',{'player_state': player_state, 'game_state': game_state,'turn_options':turn_options
+    })
+    
+def turn(request):
+    g = Game()
+    g.player_state = pickle.loads(pps)
+    g.street = pickle.loads(ps)
+    g.update_state = pickle.loads(pus)
+    
+    turn_enter = take_turn('ENTER')
+    return render(request, 'Zombies/start.html',{})
+        
     
 def userProfile(request, user_name):
     try:
