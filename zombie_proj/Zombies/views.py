@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from Zombies.forms import UserForm, PlayerForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from Zombies.models import Player
+from Zombies.models import Player, Achievements
 from django.contrib.auth.models import User
 
 from scripts.main import *
@@ -49,11 +49,20 @@ def userProfile(request, user_name):
     except:
         raise Http404('Requested user not found.')
     
-    variables = {'user_username':user.username, 'user_email':user.email, 'user_games_played':player.games_played,
-                 'user_most_days':player.most_days_survived,'user_most_kills':player.most_kills, 'user_most_people':player.most_people,
-                 'user_avg_days':player.avg_days, 'user_avg_kills':player.avg_kills, 'user_avg_people':player.avg_people}
+    context_dict = {'user_username':user.username, 'user_email':user.email,
+                 'user_games_played':player.games_played,
+                 'user_most_days':player.most_days_survived,
+                 'user_most_kills':player.most_kills,
+                 'user_most_people':player.most_people,
+                 'user_all_kills':player.kills_all_time, 
+                 'user_all_days':player.days_all_time, 
+                 'user_all_people':player.people_all_time, 
+                 'user_avg_days':player.avg_days,
+                 'user_avg_kills':player.avg_kills,
+                 'user_avg_people':player.avg_people,
+                 'user_badges':Achievements.objects.get(player=player)}
                  
 
     
-    return render(request, 'Zombies/userProfile.html', variables)
+    return render(request, 'Zombies/userProfile.html', context_dict)
     
