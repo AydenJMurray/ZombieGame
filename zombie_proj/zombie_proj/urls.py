@@ -7,7 +7,6 @@ from django.contrib.auth import login
 
 from registration import signals
 from registration.backends.simple.views import RegistrationView
-from registration.forms import RegistrationForm
 
 
 class MyRegistrationView(RegistrationView):
