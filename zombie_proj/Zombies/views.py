@@ -85,10 +85,9 @@ def start(request):
     game_screen = show_game_screen(g) 
     player_state = g.player_state
     game_state = g.game_state
-    if game_state != "NONE":
-        turn_options = g.turn_options()
+    turn_options = g.turn_options()
         
-    return render(request, 'Zombies/start.html',{'player_state': player_state, 'game_state': game_state,'turn_options': turn_options})
+    return render(request, 'Zombies/start.html',{'player_state': player_state, 'game_state': game_state,'turn_options': turn_options, 'game_screen':game_screen})
     
 def userProfile(request, user_name):
     try:
