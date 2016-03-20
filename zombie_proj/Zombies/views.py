@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from Zombies.forms import UserForm, PlayerForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from Zombies.models import Player, Achievements
+from Zombies.models import Player, Achievement
 from django.contrib.auth.models import User
 
 from scripts.main import *
