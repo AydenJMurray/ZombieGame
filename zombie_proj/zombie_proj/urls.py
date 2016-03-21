@@ -34,9 +34,8 @@ class MyRegistrationView(RegistrationView):
 
 
 urlpatterns = patterns('',
-
-	url(r'^admin/', include(admin.site.urls)),
-	url(r'^', include('Zombies.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+	url(r'^Zombies/', include('Zombies.urls')),
 	url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
 	url(r'^accounts/', include('registration.backends.simple.urls')),
 )

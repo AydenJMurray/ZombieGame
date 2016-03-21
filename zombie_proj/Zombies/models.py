@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
@@ -12,7 +13,7 @@ class Player(models.Model):
     kills_all_time = models.IntegerField(default=0)
     days_all_time = models.IntegerField(default=0)
     people_all_time= models.IntegerField(default=0)
-    current_game = models.FileField(max_length = 1024,blank=True, null=True)
+    current_game = models.CharField(max_length = 1024,blank=True, null=True)
 
 
     def getAvgDays(self):
