@@ -7,5 +7,5 @@ urlpatterns = patterns('',
         url(r'^leaderboards/$', views.leaderboard, name='leaderboards'),
         url(r'^start/', views.start, name = 'start'),
         url(r'^turn/', views.turn, name = 'turn'),
-        url(r'^user/(?P<user_name>[A-Za-z_/,\.-0-9]+)/$', views.userProfile, name = 'userProfile' ),
+        url(r'^user/(?P<user_name>[A-Za-z_/,-\.0-9]+)/$', views.userProfile, name = 'userProfile' ),
         )
