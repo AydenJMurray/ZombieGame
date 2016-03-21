@@ -12,19 +12,19 @@ from django.contrib.auth import authenticate
 
 def populate():
 
-    add_player(user=add_user_login("Jim", "password", "jim@testuser.com"),
+    add_player(user=add_user_login("jill", "jill", "jill@testuser.com"),
                games=3,
                kills=12,
                days_survived=31,
                people=5)
 
-    add_player(user=add_user_login("Jean", "password", "jean@testuser.co.uk"),
+    add_player(user=add_user_login("bob", "bob", "bob@testuser.co.uk"),
                games=6,
                kills=32,
                days_survived=10,
                people=4)
 
-    add_player(user=add_user_login("Joe", "password", "joe@testuser.org"),
+    add_player(user=add_user_login("jen", "jen", "jen@testuser.org"),
                games=1,
                kills=0,
                days_survived=2,
@@ -36,7 +36,7 @@ def populate():
                days_survived=1,
                people=1)
 
-    add_player(user=add_user("Jill"),
+    add_player(user=add_user("Jim"),
                games=6,
                kills=23,
                days_survived=8,
