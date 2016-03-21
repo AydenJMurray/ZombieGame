@@ -4,7 +4,7 @@ Team:
   * AydenMurray97   - Ayden 2135386m
   * conormcharg     - Conor 2128292m
   * kennymurr       - Kenny 2140010m
-  * JamieSweeney321 - Jamie 
+  * JamieSweeney321 - Jamie 2137284s
   
 # How to run the game:
 Clone the repository and create a new virtual environment using the "requirements.txt" file found in the project root directory "ZombieGame".
