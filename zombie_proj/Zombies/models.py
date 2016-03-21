@@ -12,7 +12,7 @@ class Player(models.Model):
     kills_all_time = models.IntegerField(default=0)
     days_all_time = models.IntegerField(default=0)
     people_all_time= models.IntegerField(default=0)
-    current_game = models.FileField(max_length = 100,blank=True, null=True)
+    current_game = models.FileField(max_length = 1024,blank=True, null=True)
 
 
     def getAvgDays(self):
@@ -58,11 +58,11 @@ class Achievement(models.Model):
     class Meta:
         unique_together = (('player','badge'))
 
-class Game(models.Model):
-    user = models.ForeignKey('Player')
-    game_state = models.CharField(max_length=128)
-    player_state = models.CharField(max_length=128)
-    street_state = models.CharField(max_length=128)
-    update_state = models.CharField(max_length=128)
+# class Game(models.Model):
+    # #user = models.ForeignKey('Player')
+    # game_state = models.CharField(max_length=128)
+    # player_state = models.CharField(max_length=128)#player_state
+    # street = models.CharField(max_length=128)#street
+    # update_state = models.CharField(max_length=128)#update_state
 	
 

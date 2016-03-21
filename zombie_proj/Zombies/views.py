@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from Zombies.forms import UserForm, PlayerForm
-from Zombies.models import Player, Achievement
+from Zombies.models import *
 from django.contrib.auth.models import User
+
 import pickle
 
 from scripts.main import *
@@ -34,38 +35,33 @@ def leaderboard(request):
      return render(request, 'Zombies/leaderboards.html', context_dict)
     
 def start(request):
-    g = Game()
-    g.start_new_day() 
-    pps = pickle.dumps(g.player_state)
-    pus = pickle.dumps(g.update_state)
-    ps = pickle.dumps(g.street)
-    game_state = g.game_state
-
-
-    player_state = g.player_state
-    game_state = g.game_state
-    turn_options = g.turn_options()
-    #turn = turn_options(g)
-    
-    
-
-    
-    
-    
-    
-    
-    
-        
-    return render(request, 'Zombies/start.html',{'player_state': player_state, 'game_state': game_state,'turn_options':turn_options
-    })
+    player = Player.objects.get(user)
+    if current_game != None:
+        g = pickle.loads (player.current_game)
+        if g.is_game_over():
+            context_dict = {"game-over": True}
+            return render (request, 'Zombies/start.html', context_dict)
+        elif g.is_day_over():
+            g.end_day()
+            g.start_new_day()
+    else:
+        g = Game()
+        g.start_new_day()
+        return render (request, 'Zombies/start.html', context_dict)
+       
     
 def turn(request):
-    g = Game()
-    g.player_state = pickle.loads(pps)
-    g.street = pickle.loads(ps)
-    g.update_state = pickle.loads(pus)
+    player = Player.objects.get(user)
+    g = pickle.loads(player.current_game)
+    if turn in ['MOVE','SEARCH']:
+        g.take_turn(turn, pos)
+    else:
+        g.take_turn(turn)
     
-    turn_enter = take_turn('ENTER')
+    #g.player_state = pickle.loads(pps)
+    #g.street = pickle.loads(ps) 
+    #g.update_state = pickle.loads(pus)
+    
     return render(request, 'Zombies/start.html',{})
         
     
