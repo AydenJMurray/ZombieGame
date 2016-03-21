@@ -12,4 +12,4 @@ class UserForm(forms.ModelForm):
 class PlayerForm(forms.ModelForm):
     class Meta:
         model = Player
-        fields = ('profile_picture',)
+        #fields = ('profile_picture',)
