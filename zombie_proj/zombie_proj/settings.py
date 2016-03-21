@@ -31,7 +31,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['aydenmurray97.pythonanywhere.com', 'localhost']
+ALLOWED_HOSTS = ['aydenmurray97.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 SITE_ID = 1
 
