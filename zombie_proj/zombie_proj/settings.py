@@ -31,14 +31,14 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aydenmurray97.pythonanywhere.com', 'localhost']
 
 SITE_ID = 1
 
 # Application definition
 
 INSTALLED_APPS = (
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
