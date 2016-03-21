@@ -1,4 +1,6 @@
-
+table{
+    color:white;
+}
 tbody{
     counter-reset: rowNumber !important;
     }

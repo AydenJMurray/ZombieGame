@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from Zombies.models import Player
+from Zombies.views import home
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
@@ -35,7 +36,7 @@ class MyRegistrationView(RegistrationView):
 urlpatterns = patterns('',
 
 	url(r'^admin/', include(admin.site.urls)),
-	url(r'^Zombies/', include('Zombies.urls')),
+	url(r'^', include('Zombies.urls')),
 	url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
 	url(r'^accounts/', include('registration.backends.simple.urls')),
 )
