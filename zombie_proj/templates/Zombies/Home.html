@@ -27,8 +27,8 @@
 
 		<div class="col-md-3">
 			{% if user.is_authenticated %}
-				<p style="color:White">Welcome {{ user.username }}, view your profile <a href=/Zombies/user/{{ user.username }}/>here</a>! </p>
-				<a href="{% url 'auth_logout' %}?next=/Zombies/">Log Out</a>
+				<p style="color:White">Welcome {{ user.username }}, view your profile <a href=/user/{{ user.username }}/>here</a>! </p>
+				<a href="{% url 'auth_logout' %}?next=/">Log Out</a>
 
 			{% else %}
 				<p><a href="{% url 'auth_login' %}">LOGIN</a>  / <a href="{% url 'registration_register' %}">SIGN UP</a></p>
