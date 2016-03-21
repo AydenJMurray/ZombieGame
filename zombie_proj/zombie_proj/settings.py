@@ -27,11 +27,11 @@ LOGIN_URL = '/accounts/login/'
 SECRET_KEY = 'wq**2v717cxquew9u*am(34k3(etk1i+ydn&_@7s!zhxfdw@$t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aydenmurray97.pythonanywhere.com', 'localhost']
 
 SITE_ID = 1
 
