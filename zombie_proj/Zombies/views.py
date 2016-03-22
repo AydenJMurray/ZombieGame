@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from Zombies.forms import UserForm, PlayerForm
+from Zombies.forms import UserForm, PlayerForm, AddForm
 from Zombies.models import *
 from django.contrib.auth.models import User
 import copy_reg
