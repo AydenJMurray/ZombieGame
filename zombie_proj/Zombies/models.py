@@ -13,10 +13,10 @@ class Player(models.Model):
     days_all_time = models.IntegerField(default=0)
     people_all_time= models.IntegerField(default=0)
     current_game = models.CharField(max_length = 1024,blank=True, null=True)
-    badge1_display = models.IntegerField(max_length = 2, null=True)
-    badge2_display = models.IntegerField(max_length = 2, null=True)
-    badge3_display = models.IntegerField(max_length = 2, null=True)
-    badge4_display = models.IntegerField(max_length = 2, null=True)
+    badge1_display = models.IntegerField(max_length = 2, null=True, default = 0)
+    badge2_display = models.IntegerField(max_length = 2, null=True, default = 1)
+    badge3_display = models.IntegerField(max_length = 2, null=True, default = 2)
+    badge4_display = models.IntegerField(max_length = 2, null=True, default = 3)
 
 
     def getAvgDays(self):
@@ -48,14 +48,6 @@ class Badge(models.Model):
     criteria = models.IntegerField()
     badge_type = models.CharField(max_length = 10)
     level = models.CharField(max_length = 10)
-    
-    def getLevelInt(self):
-        if this.level == 'bronze':
-            return 1
-        elif this.level == 'silver':
-            return 2
-        elif this.level == 'gold':
-            return 3
     
     class Meta:
         unique_together = (('name','level'))
