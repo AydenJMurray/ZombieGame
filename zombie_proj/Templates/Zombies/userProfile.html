@@ -7,6 +7,13 @@
 
 {% block body_block %}
 <style type="text/css">
+table, th, td {
+    border: 0px solid black;
+}
+
+th, td {
+    padding: 5px;
+}
     .alignleft
 {
     float:left;
@@ -35,12 +42,23 @@
     <div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
 
     <section id="totalbadges">
-      <img src="/static/images/gold.png" width="55" height="62.5"/>1
-      <img src="/static/images/silver.png" width="55" height="62.5">3
-      <img src="/static/images/bronze.png" width="55" height="62.5">4
+	<table>
+            <tr>
+                <th>Killer</th>
+                <th>Survival</th>
+		<th>Party</th>
+                <th>Stamina</th>
+  	    </tr>
+            <tr>
+		{% for badge in user_badge_levels %}
+		    <td><a href="#"><img src="/static/images/{{badge}}.png"width="60" height="60"> </td>
+		{% endfor %}
+	    </tr>
+	</table>
+	Total Badges:  {{user_badge_count}}
     </section>
 
-    <select size="5" style="width:200px">
+    <select size="10" style="width:400px">
         <option value="1">Games Played: {{ user_games_played }} </option>
         <option value="2">Total Kills: {{ user_all_kills }} </option>
         <option value="3">Total Days: {{ user_all_days }}  </option>
@@ -51,6 +69,8 @@
         <option value="8">Average Kills: {{ user_avg_kills }} </option>
         <option value="9">Average Days: {{ user_avg_days }} </option>
         <option value="10">Average People: {{ user_avg_people }} </option>
+
+
     </select>
 
     <section id="friends"class="clear">
@@ -61,18 +81,20 @@
           <a href="#"><img src="images/avatar.png" width="40" height="40">Username3</a>
           <button id="addfriend" data-profileid="{{currUser.username}}" class="btn btn-primary" type="button"> <span class="glyphicon glyphicon-plus"></span>
         Add Friend</button> <!-- no javascript yet -->
+        
+      </ul>
       </section>
 
       <section id="badges">
-        <p>Badges{% if user.is_authenticated %}<a href="#">(Edit)</a>:{% endif %}</p>
+        <p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
         <ul id="badgelist">
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Killer</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Loyalist</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Survivor</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Party Animal</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge1}}</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge2}}</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge3}}</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge4}}</a>
 
         </ul>
-      </section>
+    </section>
 
 </div>
 

@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 class Player(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
-    profile_picture = models.ImageField(upload_to='profile_images', blank=True)
     games_played = models.IntegerField(default=0)
     most_days_survived = models.IntegerField(default = 0)
     most_kills = models.IntegerField(default = 0)
@@ -14,6 +13,10 @@ class Player(models.Model):
     days_all_time = models.IntegerField(default=0)
     people_all_time= models.IntegerField(default=0)
     current_game = models.CharField(max_length = 1024,blank=True, null=True)
+    badge1_display = models.IntegerField(max_length = 2, null=True)
+    badge2_display = models.IntegerField(max_length = 2, null=True)
+    badge3_display = models.IntegerField(max_length = 2, null=True)
+    badge4_display = models.IntegerField(max_length = 2, null=True)
 
 
     def getAvgDays(self):
@@ -45,9 +48,15 @@ class Badge(models.Model):
     criteria = models.IntegerField()
     badge_type = models.CharField(max_length = 10)
     level = models.CharField(max_length = 10)
-    icon = models.ImageField(height_field=None, width_field=None ,max_length=100)
-    icon = models.ImageField(max_length=100)
- 
+    
+    def getLevelInt(self):
+        if this.level == 'bronze':
+            return 1
+        elif this.level == 'silver':
+            return 2
+        elif this.level == 'gold':
+            return 3
+    
     class Meta:
         unique_together = (('name','level'))
 
