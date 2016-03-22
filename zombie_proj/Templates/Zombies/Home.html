@@ -59,7 +59,7 @@
 						{% for kills in kills_board %}
 						<tr>
 							<td> </td>
-							<td>{{ kills.user }}</td>
+							<td><a href=/Zombies/user/{{ kills.user.username }}/> {{ kills.user }}</a></td>
 							<td>{{ kills.most_kills }} kills</td>
 						</tr>
 						{% endfor %}
@@ -106,7 +106,7 @@
 
 							<td> </td>
 
-							<td>{{ days.user }}</td>
+							<td><a href=/Zombies/user/{{ days.user.username }}/> {{ days.user }}</a></td>
 							<td>{{ days.most_days_survived }} days</td>
 						</tr>
 						{% endfor %}
