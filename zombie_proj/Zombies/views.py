@@ -167,3 +167,19 @@ def edit_badges(request):
     else:
         form = PlayerForm()
     return render(request, 'Zombies/edit_form.html', {'eform':form, 'user_username':user.username})
+    
+def add_user(request):
+    user=request.user
+    if request.method == 'POST':
+        form = AddForm(data=request.POST)
+        if form.is_valid():
+            Player = form.save(commit=True)
+            Player.user = request.user
+            Player.save()
+        else:
+            print form.errors
+    else:
+        form = AddForm()
+    return render(request, 'Zombies/add_user.html', {'aform':form, 'user_username':user.username})
+
+
