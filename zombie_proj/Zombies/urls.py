@@ -8,6 +8,6 @@ urlpatterns = patterns('',
         url(r'^start/', views.start, name = 'start'),
         url(r'^turn/', views.turn, name = 'turn'),
         url(r'^user/(?P<user_name>[A-Za-z_/,-\.0-9]+)/$', views.userProfile, name = 'userProfile' ),
-        #url(r'^edit/$', views.edit_badges, name = 'badgeEditor')
+        url(r'^edit/$', views.edit_badges, name = 'badgeEditor')
 
         )
