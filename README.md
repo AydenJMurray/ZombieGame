@@ -8,8 +8,8 @@ Team:
   * kennymurr       - Kenny 2140010m
   * JamieSweeney321 - Jamie 2137284s
   
-# How to run the game:
-Clone the repository and create a new virtual environment using the "requirements.txt" file found in the project root directory "ZombieGame".
+# How to run the application:
+Clone this repository and create a new virtual environment using the "requirements.txt" file found in the project root directory "ZombieGame".
 
 To populate the datatbase with example users and data, run the python file "populate_game" found in the "zombie_proj" directory.
 This population script adds a number of "users" to the database, allowing sample data to be displayed on the leaderboards.
