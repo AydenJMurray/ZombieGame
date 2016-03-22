@@ -97,7 +97,6 @@ def userProfile(request, user_name):
         badge_count = achievement_list.count()
     except:
         badge_count = 0
-    types = ['kills','days','people','days']
     levels = [0,0,0]
     badge_list = []
     show_badges = []        
@@ -126,7 +125,14 @@ def userProfile(request, user_name):
         	show_badges.append(badge_list[player.badge3_display])
         	show_badges.append(badge_list[player.badge4_display])
         
-        
+    friends_list = player.split_friends()
+    friends_user_list = []
+    for friend in friends_list:
+        try:
+            friend = User.objects.get(username=friend)
+            friends_user_list.append(friend)
+        except:
+            n = 0
         
     context_dict = {'user_username':user.username, 'user_email':user.email,
                     'user_games_played':player.games_played,
@@ -142,12 +148,8 @@ def userProfile(request, user_name):
                     'user_badges':badge_list,
                     'user_badge_levels': levels,
                     'user_badge_count':badge_count,
-                    'badge1' :player.badge1_display,
-                    'badge2' :player.badge2_display,
-                    'badge3' :player.badge3_display,
-                    'badge4' :player.badge4_display,
                     'show_badges' :show_badges,
-                    'friends' :player.split_friends()}
+                    'friends' :friends_user_list}
 
 
 
