@@ -18,6 +18,8 @@ def home(request):
     days_survived_list = Player.objects.order_by("-most_days_survived")[:5]
     context_dict={'kills_board':kills_list, 'survival_board':days_survived_list}
     return render(request, 'Zombies/Home.html', context_dict)
+
+
     
 def game_page(request):
     return HttpResponse("Game goes here")
@@ -66,7 +68,7 @@ def start(request):
        
     
 def turn(request):
-    player = Player.objects.get(user)
+    player = Player.objects.get(user = User.objects.get(username = request.user))
     g = pickle.loads(player.current_game)
     if turn in ['MOVE','SEARCH']:
         g.take_turn(turn, pos)
@@ -80,7 +82,22 @@ def turn(request):
     return render(request, 'Zombies/start.html',{})
         
 
+def dictionary(g):
+    context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
+    'kill':g.player_state.kills,'days':g.player_state.days}
+    if g.game_state == 'STREET':
+        context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
+    'kill':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
+   
+    elif g.game_state == 'HOUSE':
+        context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
+    'kill':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
     
+    elif g.game_state == 'ZOMBIE':
+        context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
+    'kill':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
+    
+    return context_dict
     
 
         
