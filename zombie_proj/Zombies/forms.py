@@ -10,6 +10,7 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password')
 
 class PlayerForm(forms.ModelForm):
+
     class Meta:
         model = Player
-        #fields = ('profile_picture',)
+        fields = ('badge1_display', 'badge2_display', 'badge3_display', 'badge4_display',)
