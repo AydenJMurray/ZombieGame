@@ -99,7 +99,7 @@ def userProfile(request, user_name):
         badge_count = achievement_list.count()
     except:
         badge_count = 0
-    types = ['kills','days','people','stamina']
+    types = ['kills','days','people','days']
     levels = [0,0,0,0]
     badge_list = []
     if badge_count > 0:
