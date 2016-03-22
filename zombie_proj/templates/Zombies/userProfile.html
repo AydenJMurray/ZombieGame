@@ -93,12 +93,6 @@ th, td {
 					<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
 				{% endfor %}
   	   		</tr>
-            		<tr>
-				<td>{{b1.name}}</td>
- 				<td>{{b2.name}}</td>
-				<td>{{b3.name}}</td>
-				<td>{{b4.name}}</td>
-	    		</tr>
 		</table>
 	{% elif user_badge_count < 0 and user.username == user_username %}
 		<p>Nothing here... Play the game to earn some badges</p>
