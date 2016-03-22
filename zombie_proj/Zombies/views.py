@@ -33,11 +33,7 @@ def leaderboard(request):
 
      context_dict={'kills':kills, 'days':days, 'people':people, 'allKills':allKills,'allDays':allDays ,'allPeople':allPeople }
      return render(request, 'Zombies/leaderboards.html', context_dict)
-#def dictionary (g):
-    #context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food': g.player_state.food, 'kills': g.player_state.kills
-    #,'days':g.player_state.days}
-    
-    #if g.game_
+
      
 def _pickle_method(g):
     if g.im_self is None:
