@@ -5,7 +5,7 @@ import django
 django.setup()
 
 from django.contrib.auth.models import User
-from Zombies.models import Player
+from Zombies.models import *
 
 def populate():
 
@@ -107,6 +107,51 @@ def populate():
                days_all_time=234,
                kills_all_time=231,
                people_all_time=42)
+               
+               
+    
+    # Survival Badges,, 5 / 10 / 20 days
+    add_badge(name = 'Survival', description = 'Survive 5 days', criteria = 5,
+              badge_type = 'days', level = 'bronze')
+
+    add_badge(name = 'Survival', description = 'Survive 10 days', criteria = 10,
+              badge_type = 'days', level = 'silver')
+
+    add_badge(name = 'Survival', description = 'Survive 20 days', criteria = 20,
+              badge_type = 'days', level = 'gold')
+    
+    ##Killer Badges, 10 / 20 / 50 kills
+    add_badge(name = 'Killer', description = 'Kill 10 Zombies', criteria = 10,
+              badge_type = 'kills', level = 'bronze')
+    
+    add_badge(name = 'Killer', description = 'Kill 20 Zombies', criteria = 20,
+              badge_type = 'kills', level = 'silver')
+    
+    add_badge(name = 'Killer', description = 'Kill 50 Zombies', criteria = 50,
+              badge_type = 'kills', level = 'gold')
+
+    #Stamina Badges, 5 / 10 / 20 games
+    add_badge(name = 'Stamina', description = 'Play 5 games', criteria = 5,
+              badge_type = 'games', level = 'bronze')
+    
+    add_badge(name = 'Stamina', description = 'Play 10 games', criteria = 10,
+              badge_type = 'games', level = 'silver')
+    
+    add_badge(name = 'Stamina', description = 'Play 20 games', criteria = 20,
+              badge_type = 'games', level = 'gold')
+
+    #Party Badges 10 / 20 / 40
+    add_badge(name = 'Party', description = 'Have a party size of 10', criteria = 10,
+              badge_type = 'people', level = 'bronze')
+
+    add_badge(name = 'Party', description = 'Have a party size of 20', criteria = 20,
+              badge_type = 'people', level = 'silver')
+
+    add_badge(name = 'Party', description = 'Have a party size of 40', criteria = 40,
+              badge_type = 'people', level = 'gold')
+
+    
+             
 
     # Print out what we have added to the user.
     #for p in Player.objects.all():
@@ -127,6 +172,11 @@ def add_player(user, games, kills, days_survived, people, days_all_time, kills_a
     p = Player.objects.get_or_create(user=user, games_played=games, most_kills=kills, most_days_survived=days_survived, most_people=people, days_all_time=days_all_time, kills_all_time=kills_all_time, people_all_time=people_all_time)[0]
     p.save()
     return p
+    
+def add_badge(name, description, criteria, badge_type, level):
+    b = Badge.objects.get_or_create(name=name, description = description, criteria = criteria, badge_type = badge_type, level = level)[0]
+    b.save()
+    return b
 
 
 
