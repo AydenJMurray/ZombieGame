@@ -40,6 +40,10 @@ th, td {
 <div id = "container" >
     <h2 class = "aligntextcentre"> {{ user_username }}'s Profile </h2>
     <div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
+    
+    {% if user.username != user_username %}
+    <a href="/Zombies/add/">Add User</a>
+    {% endif %}
 
     <section id="totalbadges">
 	<table>
