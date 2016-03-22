@@ -110,33 +110,21 @@ def userProfile(request, user_name):
             else:
                 levels[2]+=1
             badge_list.append(achievement.badge)
-
-    context_dict = {'user_username':user.username, 'user_email':user.email,
-                 'user_games_played':player.games_played,
-                 'user_most_days':player.most_days_survived,
-                 'user_most_kills':player.most_kills,
-                 'user_most_people':player.most_people,
-                 'user_all_kills':player.kills_all_time, 
-                 'user_all_days':player.days_all_time, 
-                 'user_all_people':player.people_all_time, 
-                 'user_avg_days':player.avg_days,
-                 'user_avg_kills':player.avg_kills,
-                 'user_avg_people':player.avg_people}
                  
-    if badge_count == 1:
-        show_badges.append(badge_list[player.badge1_display])
-    elif badge_count ==  2:
-        show_badges.append(badge_list[player.badge1_display])
-        show_badges.append(badge_list[player.badge2_display])
-    elif badge_count == 3:
-        show_badges.append(badge_list[player.badge1_display])
-        show_badges.append(badge_list[player.badge2_display])
-        show_badges.append(badge_list[player.badge3_display])
-    else:
-        show_badges.append(badge_list[player.badge1_display])
-        show_badges.append(badge_list[player.badge2_display])
-        show_badges.append(badge_list[player.badge3_display])
-        show_badges.append(badge_list[player.badge4_display])
+    	if badge_count == 1:
+        	show_badges.append(badge_list[player.badge1_display])
+    	elif badge_count ==  2:
+        	show_badges.append(badge_list[player.badge1_display])
+        	show_badges.append(badge_list[player.badge2_display])
+    	elif badge_count == 3:
+        	show_badges.append(badge_list[player.badge1_display])
+        	show_badges.append(badge_list[player.badge2_display])
+        	show_badges.append(badge_list[player.badge3_display])
+    	else:
+        	show_badges.append(badge_list[player.badge1_display])
+        	show_badges.append(badge_list[player.badge2_display])
+        	show_badges.append(badge_list[player.badge3_display])
+        	show_badges.append(badge_list[player.badge4_display])
         
         
         
