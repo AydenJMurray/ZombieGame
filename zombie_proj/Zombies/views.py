@@ -120,7 +120,25 @@ def userProfile(request, user_name):
                     'user_avg_people':player.avg_people,
                     'user_badges':badge_list,
                     'user_badge_levels': levels,
-                    'user_badge_count':badge_count}
+                    'user_badge_count':badge_count,
+                    'badge1' :player.badge1_display,
+                    'badge2' :player.badge2_display,
+                    'badge3' :player.badge3_display,
+                    'badge4' :player.badge4_display}
 
-    
+
     return render(request, 'Zombies/userProfile.html', context_dict)
+
+def edit_badges(request):
+    user = request.user
+    if request.method == 'POST':
+        form = PlayerForm(data=request.POST)
+        if form.is_valid():
+            Player = form.save(commit=True)
+            Player.user = request.user
+            Player.save()
+        else:
+            print form.errors
+    else:
+        form = PlayerForm()
+    return render(request, 'Zombies/edit_form.html', {'eform':form, 'user_username':user.username})
