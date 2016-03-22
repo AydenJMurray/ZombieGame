@@ -146,7 +146,8 @@ def userProfile(request, user_name):
                     'badge2' :player.badge2_display,
                     'badge3' :player.badge3_display,
                     'badge4' :player.badge4_display,
-                    'show_badges' :show_badges}
+                    'show_badges' :show_badges,
+                    'friends' :player.split_friends()}
 
 
     return render(request, 'Zombies/userProfile.html', context_dict)
