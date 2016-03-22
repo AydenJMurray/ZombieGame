@@ -123,20 +123,20 @@ def userProfile(request, user_name):
                  'user_avg_kills':player.avg_kills,
                  'user_avg_people':player.avg_people}
                  
-        if badge_count == 1:
-            show_badges.append(badge_list[player.badge1_display])
-        elif badge_count ==  2:
-            show_badges.append(badge_list[player.badge1_display])
-            show_badges.append(badge_list[player.badge2_display])
-        elif badge_count == 3:
-            show_badges.append(badge_list[player.badge1_display])
-            show_badges.append(badge_list[player.badge2_display])
-            show_badges.append(badge_list[player.badge3_display])
-        else:
-            show_badges.append(badge_list[player.badge1_display])
-            show_badges.append(badge_list[player.badge2_display])
-            show_badges.append(badge_list[player.badge3_display])
-            show_badges.append(badge_list[player.badge4_display])
+    if badge_count == 1:
+        show_badges.append(badge_list[player.badge1_display])
+    elif badge_count ==  2:
+        show_badges.append(badge_list[player.badge1_display])
+        show_badges.append(badge_list[player.badge2_display])
+    elif badge_count == 3:
+        show_badges.append(badge_list[player.badge1_display])
+        show_badges.append(badge_list[player.badge2_display])
+        show_badges.append(badge_list[player.badge3_display])
+    else:
+        show_badges.append(badge_list[player.badge1_display])
+        show_badges.append(badge_list[player.badge2_display])
+        show_badges.append(badge_list[player.badge3_display])
+        show_badges.append(badge_list[player.badge4_display])
         
         
         
