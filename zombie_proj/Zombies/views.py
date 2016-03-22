@@ -98,7 +98,7 @@ def userProfile(request, user_name):
     except:
         badge_count = 0
     types = ['kills','days','people','days']
-    levels = [0,0,0,0]
+    levels = [0,0,0]
     badge_list = []
     show_badges = []        
     if badge_count > 0:
