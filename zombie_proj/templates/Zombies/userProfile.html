@@ -44,6 +44,7 @@ th, td {
     <section id="totalbadges">
 	<table>
             <tr>
+<<<<<<< HEAD
                 <th>Killer</th>
                 <th>Survival</th>
 		<th>Party</th>
@@ -52,6 +53,15 @@ th, td {
             <tr>
 		{% for badge in user_badge_levels %}
 		    <td><a href="#"><img src="/static/images/{{badge}}.png"width="60" height="60"> </td>
+=======
+                <td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
+  	    </tr>
+            <tr>
+		{% for level in user_badge_levels %}
+			<td>	{{level}}</td>
+>>>>>>> 8ce1153624834feb52f22995588eb1c1af533b44
 		{% endfor %}
 	    </tr>
 	</table>
@@ -85,6 +95,7 @@ th, td {
       </ul>
       </section>
 
+<<<<<<< HEAD
       <section id="badges">
         <p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
         <ul id="badgelist">
@@ -94,6 +105,29 @@ th, td {
           <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge4}}</a>
 
         </ul>
+=======
+      <section id="badgeshow">
+	<p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
+	{% if user_badge_count > 0  %}
+		<table>
+            		<tr>
+				{% for badge in show_badges %}
+					<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
+				{% endfor %}
+  	   		</tr>
+            		<tr>
+				<td>{{b1.name}}</td>
+ 				<td>{{b2.name}}</td>
+				<td>{{b3.name}}</td>
+				<td>{{b4.name}}</td>
+	    		</tr>
+		</table>
+	{% elif user_badge_count < 0 and user.username == user_username %}
+		<p>Nothing here... Play the game to earn some badges</p>
+	{% else %}
+		<p>{{user_username}} has no badges!</p>
+	{% endif %}
+>>>>>>> 8ce1153624834feb52f22995588eb1c1af533b44
     </section>
 
 </div>

@@ -101,11 +101,17 @@ def userProfile(request, user_name):
     types = ['kills','days','people','days']
     levels = [0,0,0,0]
     badge_list = []
+    show_badges = []        
     if badge_count > 0:
         for achievement in achievement_list:
-            if levels[types.index(achievement.badge.badge_type)] < achievement.badge.getLevelInt:
-                levels[types.index(achievement.badge.badge_type)] = achievement.badge.level
+            if achievement.badge.level == 'bronze':
+                levels[0]+=1
+            elif achievement.badge.level == 'silver':
+                levels[1]+=1
+            else:
+                levels[2]+=1
             badge_list.append(achievement.badge)
+<<<<<<< HEAD
 >>>>>>> 3c4188a3e992e01fab2dd91ce05855ef88bd476b
     context_dict = {'user_username':user.username, 'user_email':user.email,
                  'user_games_played':player.games_played,
@@ -119,6 +125,45 @@ def userProfile(request, user_name):
                  'user_avg_kills':player.avg_kills,
                  'user_avg_people':player.avg_people}
                  
+=======
+        if badge_count == 1:
+            show_badges.append(badge_list[player.badge1_display])
+        elif badge_count ==  2:
+            show_badges.append(badge_list[player.badge1_display])
+            show_badges.append(badge_list[player.badge2_display])
+        elif badge_count == 3:
+            show_badges.append(badge_list[player.badge1_display])
+            show_badges.append(badge_list[player.badge2_display])
+            show_badges.append(badge_list[player.badge3_display])
+        else:
+            show_badges.append(badge_list[player.badge1_display])
+            show_badges.append(badge_list[player.badge2_display])
+            show_badges.append(badge_list[player.badge3_display])
+            show_badges.append(badge_list[player.badge4_display])
+        
+        
+    context_dict = {'user_username':user.username, 'user_email':user.email,
+                    'user_games_played':player.games_played,
+                    'user_most_days':player.most_days_survived,
+                    'user_most_kills':player.most_kills,
+                    'user_most_people':player.most_people,
+                    'user_all_kills':player.kills_all_time, 
+                    'user_all_days':player.days_all_time, 
+                    'user_all_people':player.people_all_time, 
+                    'user_avg_days':player.avg_days,
+                    'user_avg_kills':player.avg_kills,
+                    'user_avg_people':player.avg_people,
+                    'user_badges':badge_list,
+                    'user_badge_levels': levels,
+                    'user_badge_count':badge_count,
+                    'badge1' :player.badge1_display,
+                    'badge2' :player.badge2_display,
+                    'badge3' :player.badge3_display,
+                    'badge4' :player.badge4_display,
+                    'show_badges' :show_badges,
+                    'friends' :player.split_friends()}
+
+>>>>>>> 8ce1153624834feb52f22995588eb1c1af533b44
 
     
     return render(request, 'Zombies/userProfile.html', context_dict)

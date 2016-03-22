@@ -17,7 +17,7 @@ TEMPLATE_DIRS = (TEMPLATE_PATH,)
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = '/Zombies/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
 
 # Quick-start development settings - unsuitable for production
