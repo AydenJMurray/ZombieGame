@@ -90,7 +90,23 @@ def userProfile(request, user_name):
         player = Player.objects.get(user = user)
     except:
         raise Http404('Requested user not found.')
+<<<<<<< HEAD
     
+=======
+    try:
+        achievement_list = Achievement.objects.filter(player=player)
+        badge_count = achievement_list.count()
+    except:
+        badge_count = 0
+    types = ['kills','days','people','days']
+    levels = [0,0,0,0]
+    badge_list = []
+    if badge_count > 0:
+        for achievement in achievement_list:
+            if levels[types.index(achievement.badge.badge_type)] < achievement.badge.getLevelInt:
+                levels[types.index(achievement.badge.badge_type)] = achievement.badge.level
+            badge_list.append(achievement.badge)
+>>>>>>> 3c4188a3e992e01fab2dd91ce05855ef88bd476b
     context_dict = {'user_username':user.username, 'user_email':user.email,
                  'user_games_played':player.games_played,
                  'user_most_days':player.most_days_survived,
