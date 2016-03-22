@@ -13,6 +13,10 @@ class Player(models.Model):
     days_all_time = models.IntegerField(default=0)
     people_all_time= models.IntegerField(default=0)
     current_game = models.CharField(max_length = 1024,blank=True, null=True)
+    badge1_display = models.IntegerField(max_length = 2, null=True)
+    badge2_display = models.IntegerField(max_length = 2, null=True)
+    badge3_display = models.IntegerField(max_length = 2, null=True)
+    badge4_display = models.IntegerField(max_length = 2, null=True)
 
 
     def getAvgDays(self):
