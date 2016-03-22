@@ -44,14 +44,13 @@ th, td {
     <section id="totalbadges">
 	<table>
             <tr>
-                <th>Killer</th>
-                <th>Survival</th>
-		<th>Party</th>
-                <th>Stamina</th>
+                <td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
   	    </tr>
             <tr>
-		{% for badge in user_badge_levels %}
-		    <td><a href="#"><img src="/static/images/{{badge}}.png"width="60" height="60"> </td>
+		{% for level in user_badge_levels %}
+			<td>	{{level}}</td>
 		{% endfor %}
 	    </tr>
 	</table>
