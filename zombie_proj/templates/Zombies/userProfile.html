@@ -74,17 +74,16 @@ th, td {
 
     <section id="friends"class="clear">
         <p>Friends:</p>
-        <ul id="friendslist">
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Username1</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Username2</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Username3</a>
-          <button id="addfriend" data-profileid="{{currUser.username}}" class="btn btn-primary" type="button"> <span class="glyphicon glyphicon-plus"></span>
-        Add Friend</button> <!-- no javascript yet -->
-        
-      </ul>
-      </section>
+        <table>
+            	<tr>
+			{% for friend in friends %}
+				<td><a href="/user/{{friend}}"><img src="images/avatar.png" width="40" height="40">{{friend}}</a></td>
+			{% endfor %}
+  		</tr>
+	</table>
+     </section>
 
-      <section id="badgeshow">
+     <section id="badgeshow">
 	<p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
 	{% if user_badge_count > 0  %}
 		<table>
@@ -99,7 +98,7 @@ th, td {
 	{% else %}
 		<p>{{user_username}} has no badges!</p>
 	{% endif %}
-    </section>
+     </section>
 
 </div>
 
