@@ -154,7 +154,7 @@ def userProfile(request, user_name):
     
     return render(request, 'Zombies/userProfile.html', context_dict)
     
-    def edit_badges(request):
+def edit_badges(request):
     user = request.user
     if request.method == 'POST':
         form = PlayerForm(data=request.POST)
