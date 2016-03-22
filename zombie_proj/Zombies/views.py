@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from Zombies.forms import UserForm, PlayerForm
+from Zombies.forms import UserForm, PlayerForm, AddForm
 from Zombies.models import *
 from django.contrib.auth.models import User
 import copy_reg
@@ -114,8 +114,7 @@ def userProfile(request, user_name):
         badge_count = achievement_list.count()
     except:
         badge_count = 0
-    types = ['kills','days','people','days']
-    levels = [0,0,0,0]
+    levels = [0,0,0]
     badge_list = []
     show_badges = []        
     if badge_count > 0:
@@ -127,35 +126,30 @@ def userProfile(request, user_name):
             else:
                 levels[2]+=1
             badge_list.append(achievement.badge)
-
-    context_dict = {'user_username':user.username, 'user_email':user.email,
-                 'user_games_played':player.games_played,
-                 'user_most_days':player.most_days_survived,
-                 'user_most_kills':player.most_kills,
-                 'user_most_people':player.most_people,
-                 'user_all_kills':player.kills_all_time, 
-                 'user_all_days':player.days_all_time, 
-                 'user_all_people':player.people_all_time, 
-                 'user_avg_days':player.avg_days,
-                 'user_avg_kills':player.avg_kills,
-                 'user_avg_people':player.avg_people}
                  
-    if badge_count == 1:
-        show_badges.append(badge_list[player.badge1_display])
-    elif badge_count ==  2:
-        show_badges.append(badge_list[player.badge1_display])
-        show_badges.append(badge_list[player.badge2_display])
-    elif badge_count == 3:
-        show_badges.append(badge_list[player.badge1_display])
-        show_badges.append(badge_list[player.badge2_display])
-        show_badges.append(badge_list[player.badge3_display])
-    else:
-        show_badges.append(badge_list[player.badge1_display])
-        show_badges.append(badge_list[player.badge2_display])
-        show_badges.append(badge_list[player.badge3_display])
-        show_badges.append(badge_list[player.badge4_display])
+    	if badge_count == 1:
+        	show_badges.append(badge_list[player.badge1_display])
+    	elif badge_count ==  2:
+        	show_badges.append(badge_list[player.badge1_display])
+        	show_badges.append(badge_list[player.badge2_display])
+    	elif badge_count == 3:
+        	show_badges.append(badge_list[player.badge1_display])
+        	show_badges.append(badge_list[player.badge2_display])
+        	show_badges.append(badge_list[player.badge3_display])
+    	else:
+        	show_badges.append(badge_list[player.badge1_display])
+        	show_badges.append(badge_list[player.badge2_display])
+        	show_badges.append(badge_list[player.badge3_display])
+        	show_badges.append(badge_list[player.badge4_display])
         
-        
+    friends_list = player.split_friends()
+    friends_user_list = []
+    for friend in friends_list:
+        try:
+            friend = User.objects.get(username=friend)
+            friends_user_list.append(friend)
+        except:
+            n = 0
         
     context_dict = {'user_username':user.username, 'user_email':user.email,
                     'user_games_played':player.games_played,
@@ -171,15 +165,40 @@ def userProfile(request, user_name):
                     'user_badges':badge_list,
                     'user_badge_levels': levels,
                     'user_badge_count':badge_count,
-                    'badge1' :player.badge1_display,
-                    'badge2' :player.badge2_display,
-                    'badge3' :player.badge3_display,
-                    'badge4' :player.badge4_display,
                     'show_badges' :show_badges,
-                    'friends' :player.split_friends()}
+                    'friends' :friends_user_list}
 
 
 
     
     return render(request, 'Zombies/userProfile.html', context_dict)
     
+def edit_badges(request):
+    user = request.user
+    if request.method == 'POST':
+        form = PlayerForm(data=request.POST)
+        if form.is_valid():
+            Player = form.save(commit=True)
+            Player.user = request.user
+            Player.save()
+        else:
+            print form.errors
+    else:
+        form = PlayerForm()
+    return render(request, 'Zombies/edit_form.html', {'eform':form, 'user_username':user.username})
+    
+def add_user(request):
+    user=request.user
+    if request.method == 'POST':
+        form = AddForm(data=request.POST)
+        if form.is_valid():
+            Player = form.save(commit=True)
+            Player.user = request.user
+            Player.save()
+        else:
+            print form.errors
+    else:
+        form = AddForm()
+    return render(request, 'Zombies/add_user.html', {'aform':form, 'user_username':user.username})
+
+

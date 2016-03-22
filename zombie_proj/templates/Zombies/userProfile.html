@@ -40,18 +40,21 @@ th, td {
 <div id = "container" >
     <h2 class = "aligntextcentre"> {{ user_username }}'s Profile </h2>
     <div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
+    
+    {% if user.username != user_username %}
+    <a href="/Zombies/add/">Add User</a>
+    {% endif %}
 
     <section id="totalbadges">
 	<table>
             <tr>
-                <th>Killer</th>
-                <th>Survival</th>
-		<th>Party</th>
-                <th>Stamina</th>
+                <td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
   	    </tr>
             <tr>
-		{% for badge in user_badge_levels %}
-		    <td><a href="#"><img src="/static/images/{{badge}}.png"width="60" height="60"> </td>
+		{% for level in user_badge_levels %}
+			<td>	{{level}}</td>
 		{% endfor %}
 	    </tr>
 	</table>
@@ -75,26 +78,31 @@ th, td {
 
     <section id="friends"class="clear">
         <p>Friends:</p>
-        <ul id="friendslist">
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Username1</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Username2</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">Username3</a>
-          <button id="addfriend" data-profileid="{{currUser.username}}" class="btn btn-primary" type="button"> <span class="glyphicon glyphicon-plus"></span>
-        Add Friend</button> <!-- no javascript yet -->
-        
-      </ul>
-      </section>
+        <table>
+            	<tr>
+			{% for friend in friends %}
+				<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}{{friend}}</a></td>
+			{% endfor %}
+  		</tr>
+	</table>
+     </section>
 
-      <section id="badges">
-        <p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
-        <ul id="badgelist">
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge1}}</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge2}}</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge3}}</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge4}}</a>
-
-        </ul>
-    </section>
+     <section id="badgeshow">
+	<p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
+	{% if user_badge_count > 0  %}
+		<table>
+            		<tr>
+				{% for badge in show_badges %}
+					<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
+				{% endfor %}
+  	   		</tr>
+		</table>
+	{% elif user_badge_count < 0 and user.username == user_username %}
+		<p>Nothing here... Play the game to earn some badges</p>
+	{% else %}
+		<p>{{user_username}} has no badges!</p>
+	{% endif %}
+     </section>
 
 </div>
 

@@ -5,12 +5,15 @@
 {% block body_block %}
 <h1>Edit badges</h1>
 
-<form id="player_form" method="post" action="">
+<form id="player_form" method="post" action=""/Zombies/user/{{ user_username }}/"">
         {% csrf_token %}
         {{ eform.as_p }}
         <input type="submit" name="submit" value="Edit Badges" />
-        <a href=/Zombies/user/{{ user_username }}/>Profile</a>
-
+        
+</form>
+<form method="get" action="/results/" class="navbar-form">
+        <input type="text" id="searchBox" class="input-medium search-query" name="q" placeholder="Search">
+        <input type="submit" class="btn" value="Search" >
 </form>
 
 {% endblock %}
