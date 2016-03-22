@@ -81,7 +81,7 @@ th, td {
         <table>
             	<tr>
 			{% for friend in friends %}
-				<td><a href="/user/{{friend}}"><img src="images/avatar.png" width="40" height="40">{{friend}}</a></td>
+				<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}{{friend}}</a></td>
 			{% endfor %}
   		</tr>
 	</table>
