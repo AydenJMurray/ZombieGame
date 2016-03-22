@@ -81,18 +81,20 @@ th, td {
           <a href="#"><img src="images/avatar.png" width="40" height="40">Username3</a>
           <button id="addfriend" data-profileid="{{currUser.username}}" class="btn btn-primary" type="button"> <span class="glyphicon glyphicon-plus"></span>
         Add Friend</button> <!-- no javascript yet -->
+        
+      </ul>
       </section>
 
       <section id="badges">
-        <p>Badges{% if user.is_authenticated %}<a href="#">(Edit)</a>:{% endif %}</p>
+        <p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
         <ul id="badgelist">
-		{{badge1}}
-		{% for badge in user_badges %}
-          		<a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a>
-		{% endfor %}
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge1}}</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge2}}</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge3}}</a>
+          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge4}}</a>
 
         </ul>
-      </section>
+    </section>
 
 </div>
 
