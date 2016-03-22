@@ -14,3 +14,9 @@ class PlayerForm(forms.ModelForm):
     class Meta:
         model = Player
         fields = ('badge1_display', 'badge2_display', 'badge3_display', 'badge4_display',)
+
+class AddForm(forms.ModelForm):
+
+    class Meta:
+        model = Player
+        fields = ('friends',)
