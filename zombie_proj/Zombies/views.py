@@ -90,9 +90,8 @@ def userProfile(request, user_name):
         player = Player.objects.get(user = user)
     except:
         raise Http404('Requested user not found.')
-<<<<<<< HEAD
+
     
-=======
     try:
         achievement_list = Achievement.objects.filter(player=player)
         badge_count = achievement_list.count()
@@ -111,8 +110,7 @@ def userProfile(request, user_name):
             else:
                 levels[2]+=1
             badge_list.append(achievement.badge)
-<<<<<<< HEAD
->>>>>>> 3c4188a3e992e01fab2dd91ce05855ef88bd476b
+
     context_dict = {'user_username':user.username, 'user_email':user.email,
                  'user_games_played':player.games_played,
                  'user_most_days':player.most_days_survived,
@@ -125,7 +123,7 @@ def userProfile(request, user_name):
                  'user_avg_kills':player.avg_kills,
                  'user_avg_people':player.avg_people}
                  
-=======
+
         if badge_count == 1:
             show_badges.append(badge_list[player.badge1_display])
         elif badge_count ==  2:
@@ -163,7 +161,7 @@ def userProfile(request, user_name):
                     'show_badges' :show_badges,
                     'friends' :player.split_friends()}
 
->>>>>>> 8ce1153624834feb52f22995588eb1c1af533b44
+
 
     
     return render(request, 'Zombies/userProfile.html', context_dict)
