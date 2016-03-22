@@ -123,6 +123,7 @@ def userProfile(request, user_name):
                  'user_avg_kills':player.avg_kills,
                  'user_avg_people':player.avg_people}
                  
+<<<<<<< HEAD
 
         if badge_count == 1:
             show_badges.append(badge_list[player.badge1_display])
@@ -138,6 +139,22 @@ def userProfile(request, user_name):
             show_badges.append(badge_list[player.badge2_display])
             show_badges.append(badge_list[player.badge3_display])
             show_badges.append(badge_list[player.badge4_display])
+=======
+    if badge_count == 1:
+        show_badges.append(badge_list[player.badge1_display])
+    elif badge_count ==  2:
+        show_badges.append(badge_list[player.badge1_display])
+        show_badges.append(badge_list[player.badge2_display])
+    elif badge_count == 3:
+        show_badges.append(badge_list[player.badge1_display])
+        show_badges.append(badge_list[player.badge2_display])
+        show_badges.append(badge_list[player.badge3_display])
+    else:
+        show_badges.append(badge_list[player.badge1_display])
+        show_badges.append(badge_list[player.badge2_display])
+        show_badges.append(badge_list[player.badge3_display])
+        show_badges.append(badge_list[player.badge4_display])
+>>>>>>> b1445b83399b9f8c001cd4ff0f77dce4592d3255
         
         
     context_dict = {'user_username':user.username, 'user_email':user.email,
