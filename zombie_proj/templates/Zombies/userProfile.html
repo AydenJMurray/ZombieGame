@@ -85,15 +85,27 @@ th, td {
       </ul>
       </section>
 
-      <section id="badges">
-        <p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
-        <ul id="badgelist">
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge1}}</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge2}}</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge3}}</a>
-          <a href="#"><img src="images/avatar.png" width="40" height="40">{{badge4}}</a>
-
-        </ul>
+      <section id="badgeshow">
+	<p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
+	{% if user_badge_count > 0  %}
+		<table>
+            		<tr>
+				{% for badge in show_badges %}
+					<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
+				{% endfor %}
+  	   		</tr>
+            		<tr>
+				<td>{{b1.name}}</td>
+ 				<td>{{b2.name}}</td>
+				<td>{{b3.name}}</td>
+				<td>{{b4.name}}</td>
+	    		</tr>
+		</table>
+	{% elif user_badge_count < 0 and user.username == user_username %}
+		<p>Nothing here... Play the game to earn some badges</p>
+	{% else %}
+		<p>{{user_username}} has no badges!</p>
+	{% endif %}
     </section>
 
 </div>
