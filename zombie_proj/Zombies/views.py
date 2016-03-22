@@ -123,6 +123,7 @@ def userProfile(request, user_name):
                  'user_avg_kills':player.avg_kills,
                  'user_avg_people':player.avg_people}
                  
+
         if badge_count == 1:
             show_badges.append(badge_list[player.badge1_display])
         elif badge_count ==  2:
@@ -137,7 +138,6 @@ def userProfile(request, user_name):
             show_badges.append(badge_list[player.badge2_display])
             show_badges.append(badge_list[player.badge3_display])
             show_badges.append(badge_list[player.badge4_display])
-        
         
         
     context_dict = {'user_username':user.username, 'user_email':user.email,
