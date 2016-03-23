@@ -18,10 +18,17 @@
         <h4> {{turn_options}}</h4>
         {% for house in houseList %}
             <a href = "/Zombies/turn/ENTER/0"> Enter {{house}}<br/> </a>
-        {% endfor %}
+         {% endfor %}
+             
     {% elif house %}
         <h3> Player Stats </h3>
-        Party:{{party}}
+         Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}
+        <h3> You entered the House </h3>
+        {{current_house}}
+        {% for room in roomList %}
+            <a href = "/Zombies/turn/SEARCH/0"> SEARCH {{room}}<br/><a/>
+            
+        {% endfor %}
     {% endif %}
 {% endif %}
 {% endblock %}

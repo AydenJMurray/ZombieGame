@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import copy_reg
 import pickle
 import types
-from scripts.main import *
+from scripts.main import * 
 from scripts.game import Game
 from scripts.game import PlayerState
 from scripts.house import *
@@ -92,8 +92,8 @@ def dictionary(g):
    
     elif g.game_state == 'HOUSE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,'house': True  
-    ,'game_state':g.game_state})
+    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'house': True  
+    ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'roomList': g.street.get_current_house().room_list})
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
