@@ -1,108 +1,133 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load gravatar %}
+
 {% block title %} Welcome to Zombie Game{% endblock %}
 
 {% block body_block %}
-<style type="text/css">
-table, th, td {
-    border: 0px solid black;
-}
 
-th, td {
-    padding: 5px;
-}
-    .alignleft
-{
-    float:left;
-}
-    .aligntextcentre
-{
-    text-align: center;
-}
-    .clear {
-    clear: both;
-}
-    body {
-    overflow: hidden;
-}
-    #container {
-    border: 8px groove dimgrey;
-    background: aliceblue;
-    display:inline-block;
-
-}
+<link href="{% static 'css/background.css' %}" rel="stylesheet">
 
 
-</style>
-<div id = "container" >
-    <h2 class = "aligntextcentre"> {{ user_username }}'s Profile </h2>
-    <div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
+
+<div class="container-fluid" >
+	<div class = "row">
+	
+		<div class="col-xs-2">
+			<div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
+		</div>
+		<div class="col-xs-10">
+		<h1 style="color:white"> {{ user_username }}'s Profile </h1>
+		</div>
+	</div>
+	<hr style="color:white">
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title text-center">Stats</h2>
+					<table class="table">
+						<tr>
+							<td>Games Played:</td>
+							<td>{{ user_games_played }}</td>
+						</tr>
+						<tr>
+							<td>Total Kills: </td>
+							<td>{{ user_all_kills }} </td>
+						</tr>
+						<tr>
+							<td>Total Days: </td>
+							<td>{{ user_all_days }}</td>
+						</tr>
+						<tr>
+							<td>Total People: </td>
+							<td>{{ user_all_people }}</td>
+						</tr>
+						<tr>
+							<td>Most Kills: </td>
+							<td>{{ user_most_kills }} </td>
+						</tr>
+						<tr>
+							<td>Most Days: </td>
+							<td>{{ user_most_days }} </td>
+						</tr>
+						<tr>
+							<td>Most People: </td>
+							<td>{{ user_most_people }} </td>
+						</tr>
+						<tr>
+							<td>Average Kills: </td>
+							<td>{{ user_avg_kills }} </td>
+						</tr>
+						<tr>
+							<td>Average Days: </td>
+							<td>{{ user_avg_days }} </td>
+						</tr>
+						<tr>
+							<td>Average People: </td>
+							<td>{{ user_avg_people }} </td>
+						</tr>
+				</table>
+			</div>
+				
+		</div>
+	</div>
+	</div>
     
-    {% if user.username != user_username %}
-    <a href="/Zombies/add/">Add User</a>
-    {% endif %}
+	<div class="row">
+		{% if user.username != user_username %}
+		<a href="/Zombies/add/">Add User</a>
+		{% endif %}
 
-    <section id="totalbadges">
-	<table>
-            <tr>
-                <td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
-		<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
-		<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
-  	    </tr>
-            <tr>
-		{% for level in user_badge_levels %}
-			<td>	{{level}}</td>
-		{% endfor %}
-	    </tr>
-	</table>
-	Total Badges:  {{user_badge_count}}
-    </section>
-
-    <select size="10" style="width:400px">
-        <option value="1">Games Played: {{ user_games_played }} </option>
-        <option value="2">Total Kills: {{ user_all_kills }} </option>
-        <option value="3">Total Days: {{ user_all_days }}  </option>
-        <option value="4">Total People: {{ user_all_people }}</option>
-        <option value="5">Most Kills: {{ user_most_kills }} </option>
-        <option value="6">Most Days: {{ user_most_days }} </option>
-        <option value="7">Most People: {{ user_most_people }} </option>
-        <option value="8">Average Kills: {{ user_avg_kills }} </option>
-        <option value="9">Average Days: {{ user_avg_days }} </option>
-        <option value="10">Average People: {{ user_avg_people }} </option>
-
-
-    </select>
-
-    <section id="friends"class="clear">
-        <p>Friends:</p>
-        <table>
-            	<tr>
-			{% for friend in friends %}
-				<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}{{friend}}</a></td>
-			{% endfor %}
-  		</tr>
-	</table>
-     </section>
-
-     <section id="badgeshow">
-	<p>Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
-	{% if user_badge_count > 0  %}
+		<section id="totalbadges">
 		<table>
+				<tr>
+					<td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
+			<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
+			<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
+			</tr>
+				<tr>
+			{% for level in user_badge_levels %}
+				<td>	{{level}}</td>
+			{% endfor %}
+			</tr>
+		</table>
+		Total Badges:  {{user_badge_count}}
+		</section>
+	
+	</div>
+    
+	<div class="row">
+		<section id="friends"class="clear">
+			<p>Friends:</p>
+			<table>
+					<tr>
+				{% for friend in friends %}
+					<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}{{friend}}</a></td>
+				{% endfor %}
+			</tr>
+		</table>
+		 </section>
+	</div>
+
+	<div class="row">
+     <section id="badgeshow">
+	<p style="color:white">Badges{% if user.username == user_username %}<a href=/Zombies/edit/>(Edit)</a>{% endif %}:</p>
+	{% if user_badge_count > 0  %}
+		<table style="color:white">
             		<tr>
 				{% for badge in show_badges %}
 					<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
 				{% endfor %}
   	   		</tr>
 		</table>
-	{% elif user_badge_count < 0 and user.username == user_username %}
-		<p>Nothing here... Play the game to earn some badges</p>
+	{% elif user_badge_count <= 0 and user.username == user_username %}
+		<p style="color:white">Nothing here... Play the game to earn some badges</p>
 	{% else %}
-		<p>{{user_username}} has no badges!</p>
+		<p style ="color:white">{{user_username}} has no badges!</p>
 	{% endif %}
      </section>
+	</div>
 
 </div>
 
