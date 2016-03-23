@@ -9,6 +9,8 @@ import types
 from scripts.main import *
 from scripts.game import Game
 from scripts.game import PlayerState
+from scripts.house import *
+from scripts.streetfactory import *
 
 # Create your views here.
 
@@ -67,7 +69,7 @@ def start(request):
     return render (request, 'Zombies/start.html', context_dict)
        
     
-def turn(request):
+def turn(request,turn,pos):
     player = Player.objects.get(user = User.objects.get(username = request.user))
     g = pickle.loads(player.current_game)
     if turn in ['MOVE','SEARCH']:
@@ -75,27 +77,26 @@ def turn(request):
     else:
         g.take_turn(turn)
     context_dict = dictionary(g)
-    #g.player_state = pickle.loads(pps)
-    #g.street = pickle.loads(ps) 
-    #g.update_state = pickle.loads(pus)
+
     _save(player, g)
     return render(request, 'Zombies/start.html',{})
         
 
 def dictionary(g):
     context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kill':g.player_state.kills,'days':g.player_state.days}
+    'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state}
     if g.game_state == 'STREET':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kill':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
+    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name, 'game_state': g.game_state,
+    'houseList':g.street.house_list })
    
     elif g.game_state == 'HOUSE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kill':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
+    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,'house': True  })
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kill':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
+    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
     
     return context_dict
     
@@ -172,6 +173,13 @@ def userProfile(request, user_name):
 
     
     return render(request, 'Zombies/userProfile.html', context_dict)
+    
+def new(request):
+    player = Player.objects.get(user = User.objects.get(username = request.user))
+    player.current_game = None
+    player.save()
+    return start(request)
+    
     
 def edit_badges(request):
     user = request.user

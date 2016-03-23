@@ -4,14 +4,24 @@
 
 {% block body_block %}
 <h1>Game will be here</h1>
-<h3> Player Status </h3>
-{{player_state}} 
-<h3> You are in a {{game_state}}</h3>
-<h4> {{turn_options}}</h4>
-<h4> {{game_screen}}</h4>
-<form action="{% url 'turn' %}" method="turn">
-    <input id="enter-btn" type="submit" value="ENTER" />
-</form>
+<a href = "{% url 'newGame' %}"> New Game <a/><br/>
+{% if game_over %}
+    <h1>GAME OVER </h1>
+{% else %}
+    {{game_state}}
+    {% if street %}
+        <h3> Player Stats </h3>
+        Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}
 
 
+        <h3> You are in {{street}}</h3>
+        <h4> {{turn_options}}</h4>
+        {% for house in houseList %}
+            <a href = "/Zombies/turn/ENTER/0"> Enter {{house}}<br/> </a>
+        {% endfor %}
+    {% endif %}
+    {% if house %}
+        <h1>house</h1>
+    {% endif %}
+{% endif %}
 {% endblock %}
