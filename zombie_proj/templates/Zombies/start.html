@@ -12,6 +12,9 @@
 {% if game_over %}
     <h1>GAME OVER </h1>
 {% else %}
+    {% if update_state.food %}
+        {{update_state.food}}
+    {% endif %}
     {{game_state}}
     {% if street %}
         <h3> Player Stats </h3>
@@ -28,9 +31,12 @@
         <h3> Player Stats </h3>
          Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}
         <h3> You entered the House </h3>
-        {{current_house}}
+        {{current_house}}<br/>
+        {{turn_options}}<br/>
         {% for room in roomList %}
-            <a href = "/Zombies/turn/SEARCH/0"> SEARCH {{room}}<br/><a/>    
+            <a href = "/Zombies/turn/SEARCH/room"> SEARCH {{room}}<br/><a/>
+            
+            
         {% endfor %}
     {% endif %}
 {% endif %}

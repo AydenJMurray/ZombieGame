@@ -93,7 +93,7 @@ def dictionary(g):
     elif g.game_state == 'HOUSE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'house': True  
-    ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'roomList': g.street.get_current_house().room_list})
+    ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'roomList': g.street.get_current_house().room_list, 'turn_options':g.turn_options(), 'update_state':g.update_state})
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
