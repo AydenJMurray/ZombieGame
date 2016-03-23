@@ -110,6 +110,24 @@ def userProfile(request, user_name):
     except:
         raise Http404('Requested user not found.')
 
+    curr_user=request.user
+    curr_user = User.objects.get(username = curr_user.username)
+    curr_player=Player.objects.get(user=curr_user)
+    curr_player_friends = curr_player.friends
+    form = AddForm(instance=curr_player)
+    
+    if request.method == 'POST':
+        s = user.username
+        curr_player.user = request.user
+        curr_player.friends = user_name
+        curr_player.save()
+        curr_player_friends += ','
+        curr_player_friends += curr_player.friends
+        curr_player.friends = curr_player_friends
+        curr_player.save()
+        curr_player.friends = curr_player_friends
+    else:
+        form = AddForm()
     
     try:
         achievement_list = Achievement.objects.filter(player=player)
