@@ -1,0 +1,11 @@
+	body{
+			color:white;
+			background-image:url('../../static/images/background.jpg');
+		}
+a.redLink{
+			color:#ff6600;
+			text-decoration:underline;
+		}
+		P{
+			color:white;
+		}
