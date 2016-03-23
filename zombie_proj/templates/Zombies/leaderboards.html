@@ -3,6 +3,7 @@
 {% block title %}Leaderboards{% endblock %}
 
 {% block include %}
+	<link href="{% static 'css/background.css' %}" rel="stylesheet">
  	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 	<link href="{% static 'css/tables.css' %}" rel="stylesheet">
@@ -17,7 +18,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <h2>Leaderboards</h2>
+        <h2 style="color:white">Leaderboards</h2>
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#kills">KILLS</a></li>
             <li><a data-toggle="tab" href="#days">DAYS SURVIVED</a></li>

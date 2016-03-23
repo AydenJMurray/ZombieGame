@@ -4,17 +4,12 @@
 {% block title %} Welcome to Zombie Game{% endblock %}
 
 {% block include %}
+	<link href="{% static 'css/background.css' %}" rel="stylesheet">
  	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 	<link href="{% static 'css/tables.css' %}" rel="stylesheet">
-
+	
 {% endblock %}
-
-<style>
-	body{
-    background-image:url('../../static/images/background.jpg')
-	}
-</style>
 
 {% block body_block %}
 

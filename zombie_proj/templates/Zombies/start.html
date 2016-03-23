@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+
 {% block title %} Play the Zombie Game{% endblock %}
 
+
 {% block body_block %}
-<h1>Game will be here</h1>
+
+<link href="{% static 'css/background.css' %}" rel="stylesheet">
+	
 <a href = "{% url 'newGame' %}"> New Game <a/><br/>
 {% if game_over %}
     <h1>GAME OVER </h1>
@@ -26,8 +30,7 @@
         <h3> You entered the House </h3>
         {{current_house}}
         {% for room in roomList %}
-            <a href = "/Zombies/turn/SEARCH/0"> SEARCH {{room}}<br/><a/>
-            
+            <a href = "/Zombies/turn/SEARCH/0"> SEARCH {{room}}<br/><a/>    
         {% endfor %}
     {% endif %}
 {% endif %}
