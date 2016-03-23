@@ -10,5 +10,7 @@ urlpatterns = patterns('',
         url(r'^user/(?P<user_name>[A-Za-z_/,-\.0-9]+)/$', views.userProfile, name = 'userProfile' ),
         url(r'^edit/$', views.edit_badges, name = 'badgeEditor'),
         url(r'^add/$', views.add_user, name='addUser'),
-        url(r'^new/$', views.new, name = 'newGame')
+        url(r'^new/$', views.new, name = 'newGame'),
+        url(r'^help/$', views.howto, name = 'help')
+
         )

@@ -1,0 +1,18 @@
+	body{
+			color:white;
+			background-image:url('../../static/images/background.jpg');
+		}
+a.redLink{
+			color:#ff6600;
+			text-decoration:underline;
+		}
+p{
+			color:white;
+		}
+h3.redHead{
+	
+		color:#ff6600;
+}
+hr{
+	color:white;
+}
