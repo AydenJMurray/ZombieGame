@@ -73,9 +73,11 @@
 				{% if user.is_authenticated %}
 					<a href="{% url 'start' %}" class="btn btn-primary" role="button" style="height:100px;width:300px">Play</a>
 					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:300px">Leaderboards</a>
+					<a href="{% url 'help' %}" class="btn btn-primary" role="button" style="height:100px;width:300px">Help</a>
 				{% else %}
 					<a href="{% url 'auth_login' %}" class="btn btn-primary" role="button" style="height:100px;width:300px">Play</a>
 					<a href="{% url 'leaderboards' %}" class="btn btn-primary" role="button" style="height:100px;width:300pxpx">Leaderboards</a>
+					<a href="{% url 'help' %}" class="btn btn-primary" role="button" style="height:100px;width:300px">Help</a>
 				{% endif %}
 		</div>
 		</div>
