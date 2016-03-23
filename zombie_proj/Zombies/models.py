@@ -17,7 +17,7 @@ class Player(models.Model):
     badge2_display = models.IntegerField(max_length = 2, null=True, default = 1)
     badge3_display = models.IntegerField(max_length = 2, null=True, default = 2)
     badge4_display = models.IntegerField(max_length = 2, null=True, default = 3)
-    friends = models.CharField(max_length=1000, default="bob,Jill,")
+    friends = models.CharField(max_length=1000, default="bob,")
     def split_friends(self):
         return self.friends.split(',')
 
