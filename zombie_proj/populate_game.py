@@ -10,7 +10,7 @@ from Zombies.models import *
 def populate():
 
     #Our accounts
-    add_player(user=add_user_login("Jamie", "jamie", "321.jamiesweeney.321@gmail.com"),
+    me = add_player(user=add_user_login("Jamie", "jamie", "321.jamiesweeney.321@gmail.com"),
                games=34,
                kills=392,
                days_survived=31,
@@ -145,46 +145,57 @@ def populate():
                ,friends = '')
     
     # Survival Badges,, 5 / 10 / 20 days
-    add_badge(name = 'Survival', description = 'Survive 5 days', criteria = 5,
+    b1 =add_badge(name = 'Survival', description = 'Survive 5 days', criteria = 5,
               badge_type = 'days', level = 'bronze')
 
-    add_badge(name = 'Survival', description = 'Survive 10 days', criteria = 10,
+    b2 =add_badge(name = 'Survival', description = 'Survive 10 days', criteria = 10,
               badge_type = 'days', level = 'silver')
 
-    add_badge(name = 'Survival', description = 'Survive 20 days', criteria = 20,
+    b3 =add_badge(name = 'Survival', description = 'Survive 20 days', criteria = 20,
               badge_type = 'days', level = 'gold')
     
     ##Killer Badges, 10 / 20 / 50 kills
-    add_badge(name = 'Killer', description = 'Kill 10 Zombies', criteria = 10,
+    b4 =add_badge(name = 'Killer', description = 'Kill 10 Zombies', criteria = 10,
               badge_type = 'kills', level = 'bronze')
     
-    add_badge(name = 'Killer', description = 'Kill 20 Zombies', criteria = 20,
+    b5 = add_badge(name = 'Killer', description = 'Kill 20 Zombies', criteria = 20,
               badge_type = 'kills', level = 'silver')
     
-    add_badge(name = 'Killer', description = 'Kill 50 Zombies', criteria = 50,
+    b6 = add_badge(name = 'Killer', description = 'Kill 50 Zombies', criteria = 50,
               badge_type = 'kills', level = 'gold')
 
     #Stamina Badges, 5 / 10 / 20 games
-    add_badge(name = 'Stamina', description = 'Play 5 games', criteria = 5,
+    b7 = add_badge(name = 'Stamina', description = 'Play 5 games', criteria = 5,
               badge_type = 'games', level = 'bronze')
     
-    add_badge(name = 'Stamina', description = 'Play 10 games', criteria = 10,
+    b8 = add_badge(name = 'Stamina', description = 'Play 10 games', criteria = 10,
               badge_type = 'games', level = 'silver')
     
-    add_badge(name = 'Stamina', description = 'Play 20 games', criteria = 20,
+    b9 =add_badge(name = 'Stamina', description = 'Play 20 games', criteria = 20,
               badge_type = 'games', level = 'gold')
 
     #Party Badges 10 / 20 / 40
-    add_badge(name = 'Party', description = 'Have a party size of 10', criteria = 10,
+    b10 =add_badge(name = 'Party', description = 'Have a party size of 10', criteria = 10,
               badge_type = 'people', level = 'bronze')
 
-    add_badge(name = 'Party', description = 'Have a party size of 20', criteria = 20,
+    b11 = add_badge(name = 'Party', description = 'Have a party size of 20', criteria = 20,
               badge_type = 'people', level = 'silver')
 
-    add_badge(name = 'Party', description = 'Have a party size of 40', criteria = 40,
+    b12= add_badge(name = 'Party', description = 'Have a party size of 40', criteria = 40,
               badge_type = 'people', level = 'gold')
 
-    
+    add_achievement(me, b1)
+    add_achievement(me, b2)
+    add_achievement(me, b3)
+    add_achievement(me, b4)
+    add_achievement(me, b5)
+    add_achievement(me, b6)
+    add_achievement(me, b7)
+    add_achievement(me, b8)
+    add_achievement(me, b9)
+    add_achievement(me, b10)
+    add_achievement(me, b11)
+    add_achievement(me, b12)
              
 
     # Print out what we have added to the user.
@@ -212,7 +223,10 @@ def add_badge(name, description, criteria, badge_type, level):
     b.save()
     return b
 
-
+def add_achievement(user,badge):
+    a = Achievement.objects.get_or_create(player = user, badge = badge)[0]
+    a.save()
+    return a
 
 # Start execution here!
 if __name__ == '__main__':
