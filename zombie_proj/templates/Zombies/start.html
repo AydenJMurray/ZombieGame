@@ -19,9 +19,9 @@
         {% for house in houseList %}
             <a href = "/Zombies/turn/ENTER/0"> Enter {{house}}<br/> </a>
         {% endfor %}
-    {% endif %}
-    {% if house %}
-        <h1>house</h1>
+    {% elif house %}
+        <h3> Player Stats </h3>
+        Party:{{party}}
     {% endif %}
 {% endif %}
 {% endblock %}

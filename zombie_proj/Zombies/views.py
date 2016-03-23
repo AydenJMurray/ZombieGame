@@ -79,7 +79,7 @@ def turn(request,turn,pos):
     context_dict = dictionary(g)
 
     _save(player, g)
-    return render(request, 'Zombies/start.html',{})
+    return render(request, 'Zombies/start.html',context_dict)
         
 
 def dictionary(g):
@@ -92,7 +92,8 @@ def dictionary(g):
    
     elif g.game_state == 'HOUSE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,'house': True  })
+    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,'house': True  
+    ,'game_state':g.game_state})
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
