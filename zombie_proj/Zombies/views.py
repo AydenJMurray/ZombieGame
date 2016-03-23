@@ -237,5 +237,8 @@ def add_user(request):
     else:
         form = AddForm()
     return render(request, 'Zombies/add_user.html', {'aform':form, 'user_username':user.username})
+    
+def howto(request):
+    return render(request, 'Zombies/help.html')
 
 
