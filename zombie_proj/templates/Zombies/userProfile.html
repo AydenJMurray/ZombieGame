@@ -17,12 +17,42 @@
 			<div id="userphoto"class = "alignleft">{{user_email|gravatar:150}}</div>
 		</div>
 		<div class="col-xs-10">
-		<h1 style="color:white"> {{ user_username }}'s Profile </h1>
+			<div class="row">
+				<h1 style="color:white"> {{ user_username }}'s Profile 
+					{% if user.username != user_username %}
+						<form id="add_user" method = "post" action = "/Zombies/user/{{user_username}}/">
+						{% csrf_token %}
+						{{ aform.as_p }}
+						<input class="btn btn-danger" type="submit" name="submit" value="Add User" />
+						</form>
+			
+					{% endif %}
+					
+				</h1>
+			</div>
+			<div class="row">
+				<section id="totalbadges">
+				<table>
+				<tr>
+					<td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
+					<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
+					<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
+				</tr>
+				<tr>
+				{% for level in user_badge_levels %}
+				<td>	{{level}}</td>
+				{% endfor %}
+				</tr>
+				</table>
+				Total Badges:  {{user_badge_count}}
+				</section>
+	
+			</div>
 		</div>
 	</div>
-	<hr style="color:white">
+	<hr />
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-xs-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h2 class="panel-title text-center">Stats</h2>
@@ -67,72 +97,54 @@
 							<td>Average People: </td>
 							<td>{{ user_avg_people }} </td>
 						</tr>
-				</table>
-			</div>
+					</table>
+				</div>
 				
+			</div>
 		</div>
-	</div>
-	</div>
-    
-	<div class="row">
-    {% if user.username != user_username %}
-	<form id="add_user" method = "post" action = "/Zombies/user/{{user_username}}/">
-		{% csrf_token %}
-		{{ aform.as_p }}
-		<input type="submit" name="submit" value="Add User" />
-	</form>
-    {% endif %}
-
-    <section id="totalbadges">
-	<table>
-            <tr>
-                <td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
-		<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
-		<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
-  	    </tr>
-            <tr>
-		{% for level in user_badge_levels %}
-			<td>	{{level}}</td>
-		{% endfor %}
-	    </tr>
-	</table>
-	Total Badges:  {{user_badge_count}}
-    </section>
-	
-	</div>
-    
-	<div class="row">
-		<section id="friends"class="clear">
-			<h3 class="redHead" >Friends:</h3>
-			<table>
+		
+		<div class="col-xs-9">
+		
+			<div class="row">
+			
+				<section id="friends"class="clear">
+					<h3 class="redHead" >Friends:</h3>
+					<table>
+						<tr>
+						{% for friend in friends %}
+							<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}</td> <td>{{ friend }}</a></td>
+						{% endfor %}
+						</tr>
+					</table>
+				</section>
+			</div>
+			
+			<div class="row">
+			
+			<section id="badgeshow">
+			<h3 class="redHead">Badges{% if user.username == user_username %}<a class=redLink" href=/Zombies/edit/>(Edit)</a>{% endif %}:</h3>
+				{% if user_badge_count > 0  %}
+				<table>
 					<tr>
-				{% for friend in friends %}
-					<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}{{friend}}</a></td>
-				{% endfor %}
-			</tr>
-		</table>
-		 </section>
-	</div>
+					{% for badge in show_badges %}
+						<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
+					{% endfor %}
+					</tr>
+				</table>
+				{% elif user_badge_count <= 0 and user.username == user_username %}
+				<p>Nothing here... Play the game to earn some badges</p>
+				{% else %}
+				<p>{{user_username}} has no badges!</p>
+				{% endif %}
+			</section>
+			
+			
+			</div>
+	
+		</div>
 
-	<div class="row">
-     <section id="badgeshow">
-	<h3 class="redHead">Badges{% if user.username == user_username %}<a class=redLink" href=/Zombies/edit/>(Edit)</a>{% endif %}:</h3>
-	{% if user_badge_count > 0  %}
-		<table>
-            		<tr>
-				{% for badge in show_badges %}
-					<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
-				{% endfor %}
-  	   		</tr>
-		</table>
-	{% elif user_badge_count <= 0 and user.username == user_username %}
-		<p>Nothing here... Play the game to earn some badges</p>
-	{% else %}
-		<p>{{user_username}} has no badges!</p>
-	{% endif %}
-     </section>
+    
 	</div>
-
 </div>
 
 
