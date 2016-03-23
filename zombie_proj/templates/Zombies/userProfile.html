@@ -75,25 +75,29 @@
 	</div>
     
 	<div class="row">
-		{% if user.username != user_username %}
-		<a href="/Zombies/add/">Add User</a>
-		{% endif %}
+    {% if user.username != user_username %}
+	<form id="add_user" method = "post" action = "/Zombies/user/{{user_username}}/">
+		{% csrf_token %}
+		{{ aform.as_p }}
+		<input type="submit" name="submit" value="Add User" />
+	</form>
+    {% endif %}
 
-		<section id="totalbadges">
-		<table>
-				<tr>
-					<td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
-			<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
-			<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
-			</tr>
-				<tr>
-			{% for level in user_badge_levels %}
-				<td>	{{level}}</td>
-			{% endfor %}
-			</tr>
-		</table>
-		Total Badges:  {{user_badge_count}}
-		</section>
+    <section id="totalbadges">
+	<table>
+            <tr>
+                <td><a href="#"><img src="/static/images/bronze.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/silver.png"width="60" height="60"> </td>
+		<td><a href="#"><img src="/static/images/gold.png"width="60" height="60"> </td>
+  	    </tr>
+            <tr>
+		{% for level in user_badge_levels %}
+			<td>	{{level}}</td>
+		{% endfor %}
+	    </tr>
+	</table>
+	Total Badges:  {{user_badge_count}}
+    </section>
 	
 	</div>
     
