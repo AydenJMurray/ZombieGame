@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} Edit profile{% endblock %}
+
+{% block body_block %}
+<h1>How to play</h1>
+
+<style>
+        .indent{
+        text-indent: 5em;
+        }
+        .indent2{
+        text-indent: 10em;
+        }
+
+</style>
+
+A player starts on day one of the zombie apocalypse. Their goal is to survive as
+
+long as possible (i.e. number of days).
+
+<p>Their party size is 1. They have 3 units of food and 2 units of ammunition.</p>
+
+<p>They enter a street. A street contains a number of houses. Each house has a
+
+number of rooms.</p>
+
+<p>A room may contain other survivors, zombies, food and/or ammunition.</p>
+
+<p>The player has a number of moves.</p>
+
+<p>On the street:</p>
+
+<p class="indent">(1) a player can choose which house they enter.</pindent>
+
+<p>In a house:</p>
+
+<p class="indent">(1) enter room</p>
+
+<p class="indent">(2) move to next room</p>
+
+<p class="indent">(3)leave house</p>
+
+<p>In a room:</p>
+
+<p class="indent">(1) search room</p>
+
+<p class="indent">(2)leave room</p>
+
+<p class="indent">(3)if zombies are present, they can fight or run.</p>
+
+<p class="indent2">a. if they run, they leave the house and return to the street</p>
+
+<p class="indent2">b. if they fight, they might lose the fight (lose party members), or
+
+win, in which case they claim whatever is in the room
+
+(survivors, food, ammo)</p>
+
+<p class="indent2">c. the number of zombies killed is counted</p>
+
+<p>The game mechanic for win/loss is based on the number of zombies, the
+
+amount of ammo and the size of the party.</p>
+
+<p>During a day, the player has X units of time. Each action costs time. The day ends
+
+when they run out of time. At the end of the day, the game mechanic, decreases
+
+the amount of food depending on the size of the party. If there is not enough
+
+food, then party members might leave. Party size and food is updated, then they
+
+start the next day.</p>
+
+
+{% endblock %}
