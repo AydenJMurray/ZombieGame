@@ -91,9 +91,22 @@ def dictionary(g):
     'houseList':g.street.house_list })
    
     elif g.game_state == 'HOUSE':
+        
+        roomNumbers = []
+        roomList = g.street.get_current_house().room_list
+        
+        
+        i = 0
+       
+        while i <= len(g.street.get_current_house().room_list):
+           roomNumbers.append(i)
+           i += 1
+        
+        rooms = zip(roomNumbers , roomList)
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'house': True  
-    ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'roomList': g.street.get_current_house().room_list, 'turn_options':g.turn_options(), 'update_state':g.update_state})
+    ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'room_List': g.street.get_current_house().room_list, 'turn_options':g.turn_options(), 'update_state':g.update_state,
+     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g)})
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,

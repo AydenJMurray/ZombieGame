@@ -8,8 +8,8 @@
 {% if game_over %}
     <h1>GAME OVER </h1>
 {% else %}
-    {% if update_state.food %}
-        {{update_state.food}}
+    {% if update_food %}
+        You gained {{update_food }} food!
     {% endif %}
     {{game_state}}
     {% if street %}
@@ -29,10 +29,11 @@
         <h3> You entered the House </h3>
         {{current_house}}<br/>
         {{turn_options}}<br/>
-        {% for room in roomList %}
-            <a href = "/Zombies/turn/SEARCH/room"> SEARCH {{room}}<br/><a/>
-            
-            
+        {{update_state}}<br/>
+        {{update}}
+        {% for number,room in rooms %}
+            <a href = "/Zombies/turn/SEARCH/{{number}}/"> SEARCH {{room}}<br/><a/>
+     
         {% endfor %}
     {% endif %}
 {% endif %}
