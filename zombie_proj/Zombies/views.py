@@ -198,14 +198,24 @@ def edit_badges(request):
     
 def add_user(request):
     user=request.user
+    user = User.objects.get(username = user.username)
+    player=Player.objects.get(user=user)
+    player_friends = player.friends
+    form = AddForm(instance=player)
     if request.method == 'POST':
         form = AddForm(data=request.POST)
         if form.is_valid():
-            Player = form.save(commit=True)
-            Player.user = request.user
-            Player.save()
+            player = form.save(commit=False)
+            player.user = request.user
+            player.save()
+            player_friends += ','
+            player_friends += player.friends
+            player.friends = player_friends
+
+            player.save()
         else:
             print form.errors
+        player.friends = player_friends
     else:
         form = AddForm()
     return render(request, 'Zombies/add_user.html', {'aform':form, 'user_username':user.username})
