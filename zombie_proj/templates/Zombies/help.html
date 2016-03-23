@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %} Edit profile{% endblock %}
+{% block title %} HowTo Page{% endblock %}
 
 {% block body_block %}
+
 <h1>How to play</h1>
+
 
 <style>
         .indent{
@@ -15,63 +17,50 @@
 
 </style>
 
-A player starts on day one of the zombie apocalypse. Their goal is to survive as
 
-long as possible (i.e. number of days).
+You have started on day one of the zombie apocalypse. Your goal is to survive for as
 
-<p>Their party size is 1. They have 3 units of food and 2 units of ammunition.</p>
+many days as possible.
 
-<p>They enter a street. A street contains a number of houses. Each house has a
+<p>You start off alone, with 3 units of food and 2 units of ammunition.</p>
 
-number of rooms.</p>
+<p>You enter a street. A street contains a number of houses, your options are:</p>
 
-<p>A room may contain other survivors, zombies, food and/or ammunition.</p>
+<p class="indent">(1) you can choose which house you enter</pindent>
 
-<p>The player has a number of moves.</p>
+<p>You enter a house.  A house contains a number of rooms, your options are:</p>
 
-<p>On the street:</p>
+<p class="indent">(1) enter room,</p>
 
-<p class="indent">(1) a player can choose which house they enter.</pindent>
+<p class="indent">(2) move to next room,</p>
 
-<p>In a house:</p>
+<p class="indent">(3) leave house</p>
 
-<p class="indent">(1) enter room</p>
+<p>A room may contain other survivors to join your party, zombies to fight, food and ammunition, your options are:</p>
 
-<p class="indent">(2) move to next room</p>
+<p class="indent">(1) search room,</p>
 
-<p class="indent">(3)leave house</p>
+<p class="indent">(2) leave room,</p>
 
-<p>In a room:</p>
+<p class="indent">(3) if zombies are present, you can fight or run.</p>
 
-<p class="indent">(1) search room</p>
+<p class="indent2">a. if you run, you leave the house and return to the street</p>
 
-<p class="indent">(2)leave room</p>
+<p class="indent2">b. if you fight, you might lose the fight and some of your party members, or
 
-<p class="indent">(3)if zombies are present, they can fight or run.</p>
+win, in which case you claim whatever is in the room such as survivors, food or ammo</p>
 
-<p class="indent2">a. if they run, they leave the house and return to the street</p>
 
-<p class="indent2">b. if they fight, they might lose the fight (lose party members), or
+<p>During a day, you have a limited amount of time. Each action costs time and the day ends
 
-win, in which case they claim whatever is in the room
+when you run out of time. At the end of the day food will be used depending on the size of the party. If there is not enough
 
-(survivors, food, ammo)</p>
+food, then some of your party members might leave. Party size and food is updated, then you
 
-<p class="indent2">c. the number of zombies killed is counted</p>
+start the next day.</p>
 
 <p>The game mechanic for win/loss is based on the number of zombies, the
 
 amount of ammo and the size of the party.</p>
-
-<p>During a day, the player has X units of time. Each action costs time. The day ends
-
-when they run out of time. At the end of the day, the game mechanic, decreases
-
-the amount of food depending on the size of the party. If there is not enough
-
-food, then party members might leave. Party size and food is updated, then they
-
-start the next day.</p>
-
 
 {% endblock %}
