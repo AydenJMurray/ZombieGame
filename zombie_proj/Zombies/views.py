@@ -72,8 +72,11 @@ def start(request):
 def turn(request,turn,pos):
     player = Player.objects.get(user = User.objects.get(username = request.user))
     g = pickle.loads(player.current_game)
+    turn = str(turn)
     if turn in ['MOVE','SEARCH']:
-        g.take_turn(turn, pos)
+       pos = int(pos)
+       g.take_turn(turn, pos)
+
     else:
         g.take_turn(turn)
     context_dict = dictionary(g)
@@ -86,27 +89,35 @@ def dictionary(g):
     context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state}
     if g.game_state == 'STREET':
+        houseNumbers = []
+        houseList = g.street.house_list
+        j = 0
+        while j <= len(g.street.house_list):
+            houseNumbers.append(j)
+            j+= 1
+        houses = zip(houseNumbers, houseList)
+        
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name, 'game_state': g.game_state,
-    'houseList':g.street.house_list })
+    'houseList':g.street.house_list,'houses': houses, 'current_house':g.street.get_current_house() })
    
     elif g.game_state == 'HOUSE':
         
         roomNumbers = []
         roomList = g.street.get_current_house().room_list
-        
+       
         
         i = 0
-       
+            
         while i <= len(g.street.get_current_house().room_list):
            roomNumbers.append(i)
            i += 1
-        
         rooms = zip(roomNumbers , roomList)
+        
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'house': True  
     ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'room_List': g.street.get_current_house().room_list, 'turn_options':g.turn_options(), 'update_state':g.update_state,
-     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g)})
+     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g),  })
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,

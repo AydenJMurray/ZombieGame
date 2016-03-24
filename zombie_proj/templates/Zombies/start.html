@@ -12,7 +12,7 @@
 {% if game_over %}
     <h1>GAME OVER </h1>
 {% else %}
-    {% if update_food %}
+        {% if update_state.food %}
         You gained {{update_food }} food!
     {% endif %}
     {{game_state}}
@@ -23,10 +23,12 @@
 
         <h3> You are in {{street}}</h3>
         <h4> {{turn_options}}</h4>
-        {% for house in houseList %}
-            <a href = "/Zombies/turn/ENTER/0"> Enter {{house}}<br/> </a>
-         {% endfor %}
-             
+        <h3> You are out front of {{current_house}}</h3>
+        {% for number,house in houses %}
+            {{number}}
+            <a href = "/Zombies/turn/MOVE/{{number}}"> Move to {{house}}<br/> </a>
+        {% endfor %}
+        <a href = "/Zombies/turn/ENTER/0"> Enter House<br/><a>     
     {% elif house %}
         <h3> Player Stats </h3>
          Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}
@@ -34,9 +36,9 @@
         {{current_house}}<br/>
         {{turn_options}}<br/>
         {{update_state}}<br/>
-        {{update}}
+        {{update_state.food}}<br/>
         {% for number,room in rooms %}
-            <a href = "/Zombies/turn/SEARCH/{{number}}/"> SEARCH {{room}}<br/><a/>
+            <a href = "/Zombies/turn/SEARCH/{{number}}/"> Search {{room}}<br/><a/>
      
         {% endfor %}
     {% endif %}
