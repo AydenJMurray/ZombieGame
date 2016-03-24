@@ -11,14 +11,27 @@
 <a href = "{% url 'newGame' %}"> New Game <a/><br/>
 {% if game_over %}
     <h1>GAME OVER </h1>
+{% elif day_end %}
+<a href = "/Zombies/start"> Start day {{days}}<br/></a>
+
+    
 {% else %}
-        {% if update_state.food %}
-        You gained {{update_food }} food!
+    {% if update_state.food %}
+        You gained {{update_state.food }} food!<br/>
     {% endif %}
-    {{game_state}}
+    {% if update_state.ammo %}
+        You found {{update_state.ammo}} units of ammo<br/>
+    {% endif %}
+    {% if update_state.party %}
+        {{ update_state.party }} joined your party!<br/>
+    {% endif %}
+    {% if update_state.kills %}
+        You killed {{ update_state.kills}}<br/>
+    {% endif %}
+    <br/>{{game_state}}
     {% if street %}
         <h3> Player Stats </h3>
-        Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}
+        Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}, Daytime remaining:{{time_left}}
 
 
         <h3> You are in {{street}}</h3>
@@ -28,10 +41,10 @@
             {{number}}
             <a href = "/Zombies/turn/MOVE/{{number}}"> Move to {{house}}<br/> </a>
         {% endfor %}
-        <a href = "/Zombies/turn/ENTER/0"> Enter House<br/><a>     
+        <a href = "/Zombies/turn/ENTER/0"> Enter House<br/></a>     
     {% elif house %}
         <h3> Player Stats </h3>
-         Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}
+         Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}, Daytime remaining:{{time_left}}
         <h3> You entered the House </h3>
         {{current_house}}<br/>
         {{turn_options}}<br/>
@@ -39,8 +52,16 @@
         {{update_state.food}}<br/>
         {% for number,room in rooms %}
             <a href = "/Zombies/turn/SEARCH/{{number}}/"> Search {{room}}<br/><a/>
-     
         {% endfor %}
+        <a href = "/Zombies/turn/EXIT/0"> EXIT <br/> </a>
+    {% elif zombie %}
+        <h1>There be a zombie</h1></br>
+        <h3>Party:{{party}}, Food:{{food}}, Ammo:{{ammo}}, Kills:{{kills}}, Day:{{days}}, Daytime remaining:{{time_left}}</h3>
+        <h3>Do you want to:</h3></br>
+        <a href = "/Zombies/turn/FIGHT/0"> FIGHT <a/></br>
+        <a href = "/Zombies/turn/RUN/0"> RUN <a/></br>
+        <a href = "/Zombies/turn/WAIT/0">WAIT<a/></br>
+        {{turn_options}}
     {% endif %}
 {% endif %}
 {% endblock %}

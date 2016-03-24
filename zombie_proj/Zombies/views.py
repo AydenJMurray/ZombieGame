@@ -56,10 +56,12 @@ def start(request):
     if player.current_game != None:
         g = pickle.loads(player.current_game)
         if g.is_game_over():
-            context_dict = {"game-over": True}
+            context_dict = {"game_over": True}
             return render (request, 'Zombies/start.html', context_dict)
         elif g.is_day_over():
             g.end_day()
+            context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
+            'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state,'time_left':g.time_left }
             g.start_new_day()
     else:
         g = Game()
@@ -80,14 +82,21 @@ def turn(request,turn,pos):
     else:
         g.take_turn(turn)
     context_dict = dictionary(g)
-
+    if g.is_game_over():
+        context_dict = {'game_over':True}
+        return render (request, 'Zombies/start.html', context_dict)
+    elif g.is_day_over():
+        g.end_day()
+        context_dict = {'day_end': g.player_state.days,'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
+            'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state,'time_left':g.time_left }
+        g.start_new_day()
     _save(player, g)
     return render(request, 'Zombies/start.html',context_dict)
         
 
 def dictionary(g):
     context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state}
+    'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state,'time_left':g.time_left}
     if g.game_state == 'STREET':
         houseNumbers = []
         houseList = g.street.house_list
@@ -99,7 +108,7 @@ def dictionary(g):
         
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name, 'game_state': g.game_state,
-    'houseList':g.street.house_list,'houses': houses, 'current_house':g.street.get_current_house() })
+    'houseList':g.street.house_list,'houses': houses, 'current_house':g.street.get_current_house(), 'time_left':g.time_left })
    
     elif g.game_state == 'HOUSE':
         
@@ -117,11 +126,12 @@ def dictionary(g):
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'house': True  
     ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'room_List': g.street.get_current_house().room_list, 'turn_options':g.turn_options(), 'update_state':g.update_state,
-     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g),  })
+     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g), 'time_left':g.time_left })
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
-    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name,  })
+    'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'time_left':g.time_left,
+    'zombie': True })
     
     return context_dict
     
