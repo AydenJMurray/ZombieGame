@@ -108,7 +108,7 @@ def dictionary(g):
         
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'street': g.street.name, 'game_state': g.game_state,
-    'houseList':g.street.house_list,'houses': houses, 'current_house':g.street.get_current_house(), 'time_left':g.time_left })
+    'houseList':g.street.house_list,'houses': houses, 'current_house':g.street.get_current_house(), 'time_left':g.time_left, 'house_numbers': houseNumbers})
    
     elif g.game_state == 'HOUSE':
         
@@ -126,12 +126,12 @@ def dictionary(g):
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'house': True  
     ,'game_state':g.game_state, 'current_house':g.street.get_current_house(),'room_List': g.street.get_current_house().room_list, 'turn_options':g.turn_options(), 'update_state':g.update_state,
-     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g), 'time_left':g.time_left })
+     'rooms': rooms,'roomNumbers':roomNumbers, 'update': show_update_template(g), 'time_left':g.time_left, 'Visited': g.street.get_current_house().get_current_room().visited })
     
     elif g.game_state == 'ZOMBIE':
         context_dict.update({'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,
     'kills':g.player_state.kills,'days':g.player_state.days, 'turn_options':g.turn_options(), 'time_left':g.time_left,
-    'zombie': True })
+    'zombie': True, 'zombies': g.street.get_current_house().get_current_room().zombies })
     
     return context_dict
     
