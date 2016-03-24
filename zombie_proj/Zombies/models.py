@@ -17,11 +17,11 @@ class Player(models.Model):
     badge2_display = models.IntegerField(max_length = 2, null=True, default = 1)
     badge3_display = models.IntegerField(max_length = 2, null=True, default = 2)
     badge4_display = models.IntegerField(max_length = 2, null=True, default = 3)
-    friends = models.CharField(max_length=1000, default="bob,")
+    friends = models.CharField(max_length=1000, default="none")
+    friend_requests = models.CharField(max_length=1000, default="none")
+    
     def split_friends(self):
         return self.friends.split(',')
-
-
 
     def getAvgDays(self):
         if self.games_played > 0: 

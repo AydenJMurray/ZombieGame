@@ -126,19 +126,29 @@ def userProfile(request, user_name):
     curr_user=request.user
     curr_user = User.objects.get(username = curr_user.username)
     curr_player=Player.objects.get(user=curr_user)
-    curr_player_friends = curr_player.friends
+    player_friendreq = player.friend_requests
+    curr_player_friendreq = curr_player.friend_requests
+
     form = AddForm(instance=curr_player)
-    
-    if request.method == 'POST':
-        s = user.username
-        curr_player.user = request.user
-        curr_player.friends = user_name
-        curr_player.save()
-        curr_player_friends += ','
-        curr_player_friends += curr_player.friends
-        curr_player.friends = curr_player_friends
-        curr_player.save()
-        curr_player.friends = curr_player_friends
+
+    if (request.method == 'POST') and (curr_player.user.username not in player.friend_requests) and (curr_player.user.username not in player.friends):
+        player.friend_requests = curr_user.username
+        player.save()
+        player_friendreq += ','
+        player_friendreq += player.friend_requests
+        player.friend_requests = player_friendreq
+        player.save()
+        if (user_name in curr_player.friend_requests) and (user_name not in curr_player.friends) and (curr_player.user.username in player.friend_requests) and (curr_player.user.username not in player.friends):
+            curr_player.friends += ','
+            curr_player.friends += user_name
+            curr_player_friendreq = curr_player_friendreq.strip(user_name)
+            curr_player.friend_requests = curr_player_friendreq
+            curr_player.save()
+            player.friends += ','
+            player.friends += curr_player.user.username
+            player_friendreq = player_friendreq.strip(curr_player.user.username)
+            player.friend_requests = player_friendreq
+            player.save()
     else:
         form = AddForm()
     
