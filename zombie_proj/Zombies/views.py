@@ -96,10 +96,6 @@ def home(request):
 
 
 
-    
-def game_page(request):
-    return HttpResponse("Game goes here")
-
 def leaderboard(request):
      kills = Player.objects.order_by("-most_kills")[:]
      days = Player.objects.order_by("-most_days_survived")[:]
@@ -140,6 +136,8 @@ def start(request):
     else:
         g = Game()
         g.start_new_day()
+        player.games_played += 1
+        player.save()
     context_dict = dictionary(g)
     _save(player, g)
     return render (request, 'Zombies/start.html', context_dict)
@@ -158,6 +156,8 @@ def turn(request,turn,pos):
     context_dict = dictionary(g)
     if g.is_game_over():
         context_dict = {'game_over':True}
+        update_all_time_stats(player, g.player_state.kills, g.player_state.days, g.player_state.party)
+        player.save()
         return render (request, 'Zombies/start.html', context_dict)
     elif g.is_day_over():
         g.end_day()
@@ -165,8 +165,26 @@ def turn(request,turn,pos):
             'kills':g.player_state.kills,'days':g.player_state.days,  'game_state': g.game_state,'time_left':g.time_left }
         g.start_new_day()
     _save(player, g)
+
+    update_most_stats(player, g.player_state.kills, g.player_state.days, g.player_state.party)
     return render(request, 'Zombies/start.html',context_dict)
-        
+
+def update_all_time_stats(player, kills, days, people):
+
+    player.kills_all_time += kills
+    player.days_all_time += days
+    player.people_all_time += people
+
+def update_most_stats(player, kills, days, people):
+
+    if kills > player.most_kills:
+        player.most_kills = kills
+    if days > player.most_days_survived:
+        player.most_days_survived = days
+    if people > player.most_people:
+        player.most_people = people
+
+    player.save()
 
 def dictionary(g):
     context_dict = {'party':g.player_state.party, 'ammo':g.player_state.ammo, 'food':g.player_state.food,

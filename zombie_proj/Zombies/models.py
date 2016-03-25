@@ -24,17 +24,17 @@ class Player(models.Model):
         return self.friends.split(',')
 
     def getAvgDays(self):
-        if self.games_played > 0: 
+        if self.games_played > 0:
             return self.days_all_time/self.games_played
         return 0
 
     def getAvgKills(self):
-        if self.games_played > 0: 
+        if self.games_played > 0:
             return self.kills_all_time/self.games_played
         return 0
 
     def getAvgPeople(self):
-        if self.games_played > 0: 
+        if self.games_played > 0:
             return self.people_all_time/self.games_played
         return 0
 

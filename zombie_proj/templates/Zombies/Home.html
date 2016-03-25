@@ -38,7 +38,7 @@
                     {{ aform }}
                     <input class="btn btn-danger" type="submit" name="submit" value="Search"/>
                 </form>
-	    {% else %}
+	        {% else %}
 	    {% endif %}
 			
 		</div>
@@ -81,9 +81,40 @@
                 {% endif %}
             </div>
 
+            <div class="col-md-offset-0">
+        		<div class="panel panel-primary">
+            		<div class="panel-heading">
+                	<h3 class="panel-title">Most Kills</h3>
+	    			</div>
+				</div>
+				<div>
+            	{% if kills_board %}
 
+                <table class="table table-bordered">
+                    <thead>
+                        <th> </th>
+						<th>Username</th>
+                        <th># of Kills</th>
+		    		</thead>
+		   			<tbody>
+		    		{% for kills in kills_board %}
+                        <tr>
+                            <td> </td>
+                            <td><a class="redLink" href=/Zombies/user/{{ kills.user.username }}/> {{ kills.user }}</a></td>
+			    			<td>{{ kills.most_kills }} kills</td>
+						</tr>
+					 {% endfor %}
+		    		</tbody>
+                </table>
+	    			{% else %}
+						<strong> --     -- </strong>
+					{% endif %}
+        		</div>
+			</div>
 
-			<div class="col-md-offset-0">
+    {% else %}
+
+			<div class="col-md-offset-10">
         		<div class="panel panel-primary">
             		<div class="panel-heading">
                 	<h3 class="panel-title">Most Kills</h3>
@@ -114,7 +145,7 @@
         		</div>
 			</div>
 		</div>
-        {% endif %}
+    {% endif %}
 	</div>
 
 	<div class = "row">
