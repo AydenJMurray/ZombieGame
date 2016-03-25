@@ -233,8 +233,8 @@ def userProfile(request, user_name):
         page_player.friend_requests = curr_user.username
         page_player.save()
         page_player_friendreq += ','
-        page_player_friendreq += player.friend_requests
-        page_player.friend_requests = player_friendreq
+        page_player_friendreq += page_player.friend_requests
+        page_player.friend_requests = page_player_friendreq
         page_player.save()
         #If profile user is in current players friend requests but not friends and vice versa
         if (user_name in curr_player.friend_requests) and (user_name not in curr_player.friends) and (curr_player.user.username in player.friend_requests) and (curr_player.user.username not in player.friends):
