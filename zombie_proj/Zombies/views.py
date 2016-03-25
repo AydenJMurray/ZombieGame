@@ -28,7 +28,7 @@ def home(request):
     days_leaders = Player.objects.order_by("-most_days_survived")[:5]
 
     if user_login == True:
-
+        friends = False
         #Get friend requests
         friend_request_list = []
         for friend in player.friend_requests.split(','):
@@ -239,13 +239,17 @@ def userProfile(request, user_name):
         #If profile user is in current players friend requests but not friends and vice versa
         if (user_name in curr_player.friend_requests) and (user_name not in curr_player.friends) and (curr_player.user.username in player.friend_requests) and (curr_player.user.username not in player.friends):
             #Add friends to friends list for both players and delete from friends list
-            curr_player.friends += ','
-            curr_player.friends += user_name
-            curr_player_friendreq = curr_player_friendreq.strip(user_name)
+            curr_player_friends = curr_player.friends
+            curr_player_friends += ','
+            curr_player_friends += user_name
+            curr_player.friends =  curr_player_friends
+            curr_player_friendreq = curr_player_friendreq.strip(page_player.user.username)
             curr_player.friend_requests = curr_player_friendreq
             curr_player.save()
-            page_player.friends += ','
-            page_player.friends += curr_player.user.username
+            page_player_friends = page_player.friends
+            page_player_friends += ','
+            page_player_friends += curr_player.user.username
+            page_player.friends = page_player_friends
             page_player_friendreq = page_player_friendreq.strip(curr_player.user.username)
             page_player.friend_requests = page_player_friendreq
             page_player.save()
