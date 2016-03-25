@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% load gravatar %}
 
+
+
 {% block title %} {{ user_username }}{% endblock %}
 
 {% block body_block %}
@@ -112,7 +114,7 @@
 					<table>
 						<tr>
 						{% for friend in friends %}
-							<td><a href="/user/{{friend}}">{{friend.email|gravatar:40}}</td> <td>{{ friend }}</a></td>
+							<td><a href="/user/{{friend}}">{{friend.email|gravatar:60}}<a class="redLink" href="/Zombies/user/{{friend}}">{{friend.username}}</a></td>
 						{% endfor %}
 						</tr>
 					</table>
@@ -122,12 +124,12 @@
 			<div class="row">
 			
 			<section id="badgeshow">
-			<h3 class="redHead">Badges{% if user.username == user_username %}<a class=redLink" href=/Zombies/edit/>(Edit)</a>{% endif %}:</h3>
+			<h3 class="redHead">Badges{% if user.username == user_username %}<a class="redLink" href=/Zombies/edit/>(Edit)</a>{% endif %}:</h3>
 				{% if user_badge_count > 0  %}
 				<table>
 					<tr>
 					{% for badge in show_badges %}
-						<td><a href="#"><img src="/static/images/{{badge.level}}.png" width="40" height="40">{{badge.name}}</a></td>
+						<td><a class = "redLink"href="#"><img src="/static/images/{{badge.level}}.png" width="100" height="100">{{badge.name}}</a></td>
 					{% endfor %}
 					</tr>
 				</table>
