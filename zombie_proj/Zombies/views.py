@@ -238,15 +238,18 @@ def userProfile(request, user_name):
     except:
         raise Http404('Requested user not found.')
 
-    curr_user=request.user
-    curr_player=Player.objects.get(user=curr_user)
-    page_player_friendreq = page_player.friend_requests
-    curr_player_friendreq = curr_player.friend_requests
-
+    try:
+        curr_user=request.user
+        curr_player=Player.objects.get(user=curr_user)
+        page_player_friendreq = page_player.friend_requests
+        curr_player_friendreq = curr_player.friend_requests
+        loggedin = True
+    except:
+        loggedin = False
 
     form = AddForm(instance=curr_player)
     #If clicked add friend, and user is not on profile users friend requests, and user is not in profile users friends
-    if (request.method == 'POST') and (curr_player.user.username not in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
+    if loggedin and(request.method == 'POST') and (curr_player.user.username not in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
         #Add to friend requests
         page_player.friend_requests = curr_user.username
         page_player.save()
@@ -323,22 +326,23 @@ def userProfile(request, user_name):
             friend = ''
 
     #Get button state
-    button_state = ""
-    A=page_player.user.username
-    B=curr_player.user.username
-    C=page_player.friends
-    D=curr_player.friends
-    E=page_player.friend_requests
-    F=curr_player.friend_requests
-    if (A not in D):
-        if (A not in F) and (B not in E):
-            button_state = "Add as friend"
-        elif (B in E):
-            button_state = "Request pending"
-        elif (A in F):
-            button_state = "Accept request"
-    else:
-        button_state = "Already Friends"
+    if loggedin:
+        button_state = ""
+        A=page_player.user.username
+        B=curr_player.user.username
+        C=page_player.friends
+        D=curr_player.friends
+        E=page_player.friend_requests
+        F=curr_player.friend_requests
+        if (A not in D):
+            if (A not in F) and (B not in E):
+                button_state = "Add as friend"
+            elif (B in E):
+                button_state = "Request pending"
+            elif (A in F):
+                button_state = "Accept request"
+        else:
+            button_state = "Already Friends"
 
         
     context_dict = {'user_username':page_user.username, 'user_email':page_user.email,
@@ -382,31 +386,12 @@ def edit_badges(request):
         form = PlayerForm()
     return render(request, 'Zombies/edit_form.html', {'eform':form, 'user_username':user.username})
     
-def add_user(request):
-    user=request.user
-    user = User.objects.get(username = user.username)
-    player=Player.objects.get(user=user)
-    player_friends = player.friends
-    form = AddForm(instance=player)
-    if request.method == 'POST':
-        form = AddForm(data=request.POST)
-        if form.is_valid():
-            player = form.save(commit=False)
-            player.user = request.user
-            player.save()
-            player_friends += ','
-            player_friends += player.friends
-            player.friends = player_friends
-
-            player.save()
-        else:
-            print form.errors
-        player.friends = player_friends
-    else:
-        form = AddForm()
-    return render(request, 'Zombies/add_user.html', {'aform':form, 'user_username':user.username})
     
 def howto(request):
     return render(request, 'Zombies/help.html')
+
+
+def player404(request):
+    return render(request, 'Zombies/player404.html')
 
 
