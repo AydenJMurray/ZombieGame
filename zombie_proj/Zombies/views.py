@@ -220,15 +220,18 @@ def userProfile(request, user_name):
     except:
         raise Http404('Requested user not found.')
 
-    curr_user=request.user
-    curr_player=Player.objects.get(user=curr_user)
-    page_player_friendreq = page_player.friend_requests
-    curr_player_friendreq = curr_player.friend_requests
-
+    try:
+        curr_user=request.user
+        curr_player=Player.objects.get(user=curr_user)
+        page_player_friendreq = page_player.friend_requests
+        curr_player_friendreq = curr_player.friend_requests
+        loggedin = True
+    except:
+        loggedin = False
 
     form = AddForm(instance=curr_player)
     #If clicked add friend, and user is not on profile users friend requests, and user is not in profile users friends
-    if (request.method == 'POST') and (curr_player.user.username not in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
+    if loggedin and(request.method == 'POST') and (curr_player.user.username not in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
         #Add to friend requests
         page_player.friend_requests = curr_user.username
         page_player.save()
@@ -305,22 +308,23 @@ def userProfile(request, user_name):
             friend = ''
 
     #Get button state
-    button_state = ""
-    A=page_player.user.username
-    B=curr_player.user.username
-    C=page_player.friends
-    D=curr_player.friends
-    E=page_player.friend_requests
-    F=curr_player.friend_requests
-    if (A not in D):
-        if (A not in F) and (B not in E):
-            button_state = "Add as friend"
-        elif (B in E):
-            button_state = "Request pending"
-        elif (A in F):
-            button_state = "Accept request"
-    else:
-        button_state = "Already Friends"
+    if loggedin:
+        button_state = ""
+        A=page_player.user.username
+        B=curr_player.user.username
+        C=page_player.friends
+        D=curr_player.friends
+        E=page_player.friend_requests
+        F=curr_player.friend_requests
+        if (A not in D):
+            if (A not in F) and (B not in E):
+                button_state = "Add as friend"
+            elif (B in E):
+                button_state = "Request pending"
+            elif (A in F):
+                button_state = "Accept request"
+        else:
+            button_state = "Already Friends"
 
         
     context_dict = {'user_username':page_user.username, 'user_email':page_user.email,
