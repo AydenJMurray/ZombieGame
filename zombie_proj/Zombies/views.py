@@ -294,6 +294,33 @@ def userProfile(request, user_name):
             friends_user_list.append(friend)
         except:
             n = 0
+            
+    #Get friend requests
+    friend_request_list = []
+    for friend in page_player.friend_requests.split(','):
+        try:
+            friend = User.objects.get(username=friend)
+            friend_request_list.append(friend)
+        except:
+            friend = ''
+
+    #Get button state
+    button_state = ""
+    A=page_player.user.username
+    B=curr_player.user.username
+    C=page_player.friends
+    D=curr_player.friends
+    E=page_player.friend_requests
+    F=curr_player.friend_requests
+    if (A not in D):
+        if (A not in F) and (B not in E):
+            button_state = "Add as friend"
+        elif (B in E):
+            button_state = "Request pending"
+        elif (A in F):
+            button_state = "Accept request"
+    else:
+        button_state = "Already Friends"
 
         
     context_dict = {'user_username':page_user.username, 'user_email':page_user.email,
@@ -311,7 +338,8 @@ def userProfile(request, user_name):
                     'user_badge_levels': levels,
                     'user_badge_count':badge_count,
                     'show_badges' :show_badges,
-                    'friends' :friends_user_list}
+                    'friends' :friends_user_list,
+                    'state' : button_state}
 
     return render(request, 'Zombies/userProfile.html', context_dict)
     
