@@ -11,6 +11,7 @@ urlpatterns = patterns('',
         url(r'^edit/$', views.edit_badges, name = 'badgeEditor'),
         url(r'^add/$', views.add_user, name='addUser'),
         url(r'^new/$', views.new, name = 'newGame'),
-        url(r'^help/$', views.howto, name = 'help')
+        url(r'^help/$', views.howto, name = 'help'),
+        url(r'^player404/$', views.player404, name = 'player404')
 
         )
