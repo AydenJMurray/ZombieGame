@@ -20,3 +20,7 @@ class AddForm(forms.ModelForm):
     class Meta:
         model = Player
         fields = ('friends',)
+
+class SearchForm(forms.Form):
+    search =  forms.CharField(label='Search for new users', max_length=100)
+
