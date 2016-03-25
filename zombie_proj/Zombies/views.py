@@ -237,7 +237,7 @@ def userProfile(request, user_name):
         page_player.friend_requests = page_player_friendreq
         page_player.save()
         #If profile user is in current players friend requests but not friends and vice versa
-        if (user_name in curr_player.friend_requests) and (user_name not in curr_player.friends) and (curr_player.user.username in player.friend_requests) and (curr_player.user.username not in player.friends):
+        if (user_name in curr_player.friend_requests) and (user_name not in curr_player.friends) and (curr_player.user.username in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
             #Add friends to friends list for both players and delete from friends list
             curr_player_friends = curr_player.friends
             curr_player_friends += ','
