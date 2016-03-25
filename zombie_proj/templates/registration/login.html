@@ -15,9 +15,9 @@
         <input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required/>
 		
 		<button class="btn btn-lg btn-danger btn-block" type="submit" value="Submit">Sign in</button>
-        <a href={% url 'auth_password_reset' %}>Forgot your password?</a><br/>
+        <a class="redLink" href={% url 'auth_password_reset' %}>Forgot your password?</a><br/>
 		<br />
-		<p> Not a member? <a href="{% url 'registration_register' %}">Register here!</a></p>
+		<p> Not a member? <a class="redLink" href="{% url 'registration_register' %}">Register here!</a></p>
 
             
 

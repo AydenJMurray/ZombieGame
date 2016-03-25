@@ -1,4 +1,4 @@
-	body{
+body{
 			color:white;
 			background-image:url('../../static/images/background.jpg');
 		}
@@ -16,3 +16,17 @@ h3.redHead{
 hr{
 	color:white;
 }
+label{
+	color:white;
+}
+
+a.btn-xlarge {
+    padding: 18px 35px;
+    font-size: 40px;
+    line-height: normal;
+	border-radius: 8px;
+	background-color: #820011;
+	color:white;
+	border-color: black;
+    }
+

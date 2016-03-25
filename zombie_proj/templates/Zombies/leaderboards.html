@@ -32,7 +32,7 @@
         <div class="tab-content">
             <div id="kills" class="tab-pane fade in active">
                 <div class="col-xs-1">
-                 <ul class="nav nav-pills nav-stacked">
+                 <ul class="nav nav-pills nav-stacked text-danger">
                     <li class="active"><a data-toggle="tab" href="#allTimeKills">All Time</a></li>
                     <li ><a data-toggle="tab" href="#oneGameKills">One Game</a></li>
                  </ul>
@@ -51,7 +51,7 @@
                                 {% for k in allKills %}
                                 <tr>
                                     <td> </td>
-                                    <td><a href=/Zombies/user/{{ k.user.username }}/> {{ k.user }}</a></td>
+                                    <td><a class="redLink" href=/Zombies/user/{{ k.user.username }}/> {{ k.user }}</a></td>
                                     {% if k.kills_all_time == 1 %}
                                         <td>{{ k.kills_all_time }} kill</td>
                                     {% else %}
@@ -77,7 +77,7 @@
                                 {% for k in kills %}
                                 <tr>
                                     <td> </td>
-                                    <td><a href=/Zombies/user/{{ k.user.username }}/> {{ k.user }}</a></td>
+                                    <td><a class="redLink" href=/Zombies/user/{{ k.user.username }}/> {{ k.user }}</a></td>
                                     {% if k.most_kills == 1 %}
                                         <td>{{ k.most_kills }} kill</td>
                                     {% else %}
@@ -115,7 +115,7 @@
                                 {% for d in allDays %}
                                 <tr>
                                     <td> </td>
-                                    <td><a href=/Zombies/user/{{ d.user.username }}/> {{ d.user }}</a></td>
+                                    <td><a class="redLink" href=/Zombies/user/{{ d.user.username }}/> {{ d.user }}</a></td>
                                     {% if d.days_all_time == 1 %}
                                         <td>{{ d.days_all_time }} day</td>
                                     {% else %}
@@ -141,7 +141,7 @@
                                 {% for d in days %}
                                 <tr>
                                     <td> </td>
-                                    <td><a href=/Zombies/user/{{ d.user.username }}/> {{ d.user }}</a></td>
+                                    <td><a class="redLink" href=/Zombies/user/{{ d.user.username }}/> {{ d.user }}</a></td>
                                     {% if d.most_days_survived == 1 %}
                                         <td>{{ d.most_days_survived }} day</td>
                                     {% else %}
@@ -179,7 +179,7 @@
                                 {% for p in allPeople %}
                                 <tr>
                                     <td> </td>
-                                    <td><a href=/Zombies/user/{{ p.user.username }}/> {{ p.user }}</a></td>
+                                    <td><a class="redLink" href=/Zombies/user/{{ p.user.username }}/> {{ p.user }}</a></td>
                                     {% if p.people_all_time == 1 %}
                                     <td>{{ p.people_all_time }} person</td>
                                     {% else %}
@@ -205,7 +205,7 @@
                                 {% for p in people %}
                                 <tr>
                                     <td> </td>
-                                    <td><a href=/Zombies/user/{{ p.user.username }}/> {{ p.user }}</a></td>
+                                    <td><a class="redLink" href=/Zombies/user/{{ p.user.username }}/> {{ p.user }}</a></td>
                                     {% if p.most_people == 1 %}
                                     <td>{{ p.most_people }} person</td>
                                     {% else %}

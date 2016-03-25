@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-3">
             {% if user_login %}
-                <p><a href="/user/{{user}}">{{user.email|gravatar:100}}<a class="redLink" href="/Zombies/user/{{user}}">Your Profile</a></p>
+                <p><a href="/user/{{user}}">{{user.email|gravatar:100}}</a><a class="redLink" href="/Zombies/user/{{user}}">Your Profile</a></p>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h1 class="panel-title">Friend Requests</h1>
@@ -25,28 +25,28 @@
                     <table>
                         {% for friend in friend_requests %}
                             <tr>
-                                <td><a href="/user/{{friend}}">{{friend.email|gravatar:60}}</td>
+                                <td><a href="/user/{{friend}}">{{friend.email|gravatar:60}}</a></td>
                                 <td><a class="redLink" href="/Zombies/user/{{friend}}">{{friend}}</a></td>
                             </tr>
                         {% endfor %}
                     </table>
                 {% else %}
-                    <p colour="red">You have no new friend requests, seach for new friends below!</p>
+                    <p>You have no new friend requests, search for new friends below!</p>
                 {% endif %}
                 <form id="search_form" method="post" action="">
                     {% csrf_token %}
-                    {{ aform.as_p }}
-                    <input type="submit" name="submit" value="Search"/>
+                    {{ aform }}
+                    <input class="btn btn-danger" type="submit" name="submit" value="Search"/>
                 </form>
 	    {% else %}
 	    {% endif %}
 			
-	</div>
-    <div class = "col-xs-3 col-xs-offset-1">
+		</div>
+    	<div class = "col-xs-2 col-xs-offset-2 text-center">
         <div class="page-header">
-            <h2 class="text-danger text-center"> Welcome to Zombies </h2>
-	</div>
-    </div>
+            <h2 class="text-danger text-center"> Welcome to ZOMBIES </h2>
+		</div>
+    	</div>
     
     {% if user_login %}
         <div class="col-md-offset-10">
@@ -80,49 +80,67 @@
                     <strong> --     -- </strong>
                 {% endif %}
             </div>
-                <div class="col-md-offset-0">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Most Kills</h3>
-	    </div>
-	</div>
-	<div>
-            {% if kills_board %}
+
+
+
+			<div class="col-md-offset-0">
+        		<div class="panel panel-primary">
+            		<div class="panel-heading">
+                	<h3 class="panel-title">Most Kills</h3>
+	    			</div>
+				</div>
+				<div>
+            	{% if kills_board %}
 
                 <table class="table table-bordered">
                     <thead>
                         <th> </th>
-			<th>Username</th>
+						<th>Username</th>
                         <th># of Kills</th>
-		    </thead>
-		    <tbody>
-		    {% for kills in kills_board %}
+		    		</thead>
+		   			<tbody>
+		    		{% for kills in kills_board %}
                         <tr>
                             <td> </td>
                             <td><a class="redLink" href=/Zombies/user/{{ kills.user.username }}/> {{ kills.user }}</a></td>
-			    <td>{{ kills.most_kills }} kills</td>
-			</tr>
-		    {% endfor %}
-		    </tbody>
+			    			<td>{{ kills.most_kills }} kills</td>
+						</tr>
+					 {% endfor %}
+		    		</tbody>
                 </table>
-	    {% else %}
-		<strong> --     -- </strong>
-	    {% endif %}
-        </div>
-    </div>
-<div class = "row">
-        <div class="btn-group-vertical btn-group-lg">
+	    			{% else %}
+						<strong> --     -- </strong>
+					{% endif %}
+        		</div>
+			</div>
+		</div>
+        {% endif %}
+	</div>
 
-	</div>
-    <div class="col-md-offset-0">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Most Days Survived</h3>
-	    </div>
-	</div>
-	<div>
+	<div class = "row">
+
+        <div class="col-xs-2 col-xs-offset-5 text-center">
+
+			<div class="btn-group-vertical btn-block">
+				{% if user.is_authenticated %}
+				<a class="btn btn-block btn-xlarge" href="/start">Play</a>
+				{% else %}
+				<a class="btn btn-block btn-xlarge" href="/accounts/login">Play</a>
+				{% endif %}
+                <a class="btn btn-block btn-xlarge" href="/Zombies/help">Help</a>
+			</div>
+		</div>
+
+
+    	<div class="col-xs-offset-10">
+			<div class="panel panel-primary">
+		 		<div class="panel-heading">
+                	<h3 class="panel-title">Most Days Survived</h3>
+				</div>
+			</div>
+			<div>
             {% if survival_board %}
-                <table class="table table-bordered numbered" style="color:white">
+                <table class="table table-bordered numbered">
 		    <thead>
                         <th> </th>
                         <th>Username</th>
@@ -138,78 +156,11 @@
 			{% endfor %}
                     </tbody>
                 </table>
-	    {% else %}
+	    	{% else %}
                 <strong> --     -- </strong>
-	    {% endif %}
+	    	{% endif %}
+			</div>
+		</div>
 	</div>
-    </div>
 </div>
-    {% else %}
-    <div class="col-md-offset-10">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Most Kills</h3>
-	    </div>
-	</div>
-	<div>
-            {% if kills_board %}
-
-                <table class="table table-bordered">
-                    <thead>
-                        <th> </th>
-			<th>Username</th>
-                        <th># of Kills</th>
-		    </thead>
-		    <tbody>
-		    {% for kills in kills_board %}
-                        <tr>
-                            <td> </td>
-                            <td><a class="redLink" href=/Zombies/user/{{ kills.user.username }}/> {{ kills.user }}</a></td>
-			    <td>{{ kills.most_kills }} kills</td>
-			</tr>
-		    {% endfor %}
-		    </tbody>
-                </table>
-	    {% else %}
-		<strong> --     -- </strong>
-	    {% endif %}
-        </div>
-    </div>
-</div>
-<div class = "row">
-        <div class="btn-group-vertical btn-group-lg">
-
-	</div>
-    <div class="col-md-offset-10">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Most Days Survived</h3>
-	    </div>
-	</div>
-	<div>
-            {% if survival_board %}
-                <table class="table table-bordered numbered" style="color:white">
-		    <thead>
-                        <th> </th>
-                        <th>Username</th>
-			<th># of Days Survived</th>
-		    </thead>
-		    <tbody>
-                        {% for days in survival_board %}
-			    <tr>
-                                <td> </td>
-                                <td><a class="redLink" href=/Zombies/user/{{ days.user.username }}/> {{ days.user }}</a></td>
-				<td>{{ days.most_days_survived }} days</td>
-			    </tr>
-			{% endfor %}
-                    </tbody>
-                </table>
-	    {% else %}
-                <strong> --     -- </strong>
-	    {% endif %}
-	</div>
-    </div>
-</div>
-{% endif %}
-
 {% endblock %}
