@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from Zombies.forms import UserForm, PlayerForm, AddForm
+from Zombies.forms import *
 from Zombies.models import *
 from django.contrib.auth.models import User
 import copy_reg
@@ -15,11 +15,85 @@ from scripts.streetfactory import *
 # Create your views here.
 
 def home(request):
-	
-    kills_list = Player.objects.order_by("-most_kills")[:5]
-    days_survived_list = Player.objects.order_by("-most_days_survived")[:5]
-    context_dict={'kills_board':kills_list, 'survival_board':days_survived_list}
+    #Checks in user is logged in
+    try:
+        user = request.user
+        player = Player.objects.get(user = user)
+        user_login = True
+    except:
+        user_login = False
+        
+    #Sets leaderboards
+    kills_leaders = Player.objects.order_by("-most_kills")[:5]
+    days_leaders = Player.objects.order_by("-most_days_survived")[:5]
+
+    if user_login == True:
+
+        #Get friend requests
+        friend_request_list = []
+        for friend in player.friend_requests.split(','):
+            try:
+                friend = User.objects.get(username=friend)
+                friend_request_list.append(friend)
+            except:
+                friend = ''
+
+        #Get friends
+        friends_list = []
+        friendcount = 0
+        for friend in player.split_friends():
+            try:
+                friend = User.objects.get(username=friend)
+                friends_list.append(friend)
+                friends = True
+                friendcount +=1
+            except:
+                friend = ''
+
+        n = 0
+
+        #Gets friends leaderboards
+        if friends == True:
+            friends_leaders = []
+            
+            while n < 4 and n < friendcount :
+                max_player = Player.objects.order_by("most_kills")[:1]
+                for player in max_player:
+                    pr = player
+                max_player = pr
+                for friend in friends_list:
+                    player = Player.objects.get(user = friend)
+                    if player.most_kills >= max_player.most_kills and player not in friends_leaders:
+                        max_player = player
+                friends_leaders.append(max_player)
+                n += 1
+        else:
+            friends_leaders = []
+
+        #If user searches and is valid request user profile
+        form = SearchForm()
+        if request.method == 'POST':
+            form = SearchForm(data=request.POST)
+            if form.is_valid():
+                search = form.data['search']
+                return userProfile(request, search)
+            else:
+                print form.errors
+        else:
+            form = SearchForm()
+
+        #Set context_dict
+        context_dict={'kills_board':kills_leaders, 'survival_board':days_leaders,
+                  'friends_board':friends_leaders,'friend_requests':friend_request_list,
+                  'friends':friends_list, 'aform':form,
+                  'user_login':user_login}
+    else:
+        
+        context_dict={'kills_board':kills_leaders, 'survival_board':days_leaders,
+                    'user_login':user_login}
+    
     return render(request, 'Zombies/Home.html', context_dict)
+
 
 
     
@@ -138,75 +212,77 @@ def dictionary(g):
 
         
 def userProfile(request, user_name):
+
+    ##Get page user/player and current user/player and friend requests
     try:
-        user = User.objects.get(username = user_name)
-        player = Player.objects.get(user = user)
+        page_user = User.objects.get(username = user_name)
+        page_player = Player.objects.get(user = page_user)
     except:
         raise Http404('Requested user not found.')
 
     curr_user=request.user
-    curr_user = User.objects.get(username = curr_user.username)
     curr_player=Player.objects.get(user=curr_user)
-    player_friendreq = player.friend_requests
+    page_player_friendreq = page_player.friend_requests
     curr_player_friendreq = curr_player.friend_requests
 
-    form = AddForm(instance=curr_player)
 
-    if (request.method == 'POST') and (curr_player.user.username not in player.friend_requests) and (curr_player.user.username not in player.friends):
-        player.friend_requests = curr_user.username
-        player.save()
-        player_friendreq += ','
-        player_friendreq += player.friend_requests
-        player.friend_requests = player_friendreq
-        player.save()
+    form = AddForm(instance=curr_player)
+    #If clicked add friend, and user is not on profile users friend requests, and user is not in profile users friends
+    if (request.method == 'POST') and (curr_player.user.username not in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
+        #Add to friend requests
+        page_player.friend_requests = curr_user.username
+        page_player.save()
+        page_player_friendreq += ','
+        page_player_friendreq += player.friend_requests
+        page_player.friend_requests = player_friendreq
+        page_player.save()
+        #If profile user is in current players friend requests but not friends and vice versa
         if (user_name in curr_player.friend_requests) and (user_name not in curr_player.friends) and (curr_player.user.username in player.friend_requests) and (curr_player.user.username not in player.friends):
+            #Add friends to friends list for both players and delete from friends list
             curr_player.friends += ','
             curr_player.friends += user_name
             curr_player_friendreq = curr_player_friendreq.strip(user_name)
             curr_player.friend_requests = curr_player_friendreq
             curr_player.save()
-            player.friends += ','
-            player.friends += curr_player.user.username
-            player_friendreq = player_friendreq.strip(curr_player.user.username)
-            player.friend_requests = player_friendreq
-            player.save()
+            page_player.friends += ','
+            page_player.friends += curr_player.user.username
+            page_player_friendreq = page_player_friendreq.strip(curr_player.user.username)
+            page_player.friend_requests = page_player_friendreq
+            page_player.save()
     else:
         form = AddForm()
-    
+
+    #Try get the achievement list
     try:
-        achievement_list = Achievement.objects.filter(player=player)
+        achievement_list = Achievement.objects.filter(player=page_player)
         badge_count = achievement_list.count()
     except:
         badge_count = 0
+    
     levels = [0,0,0]
     badge_list = []
-    show_badges = []        
+    show_badge_number = [page_player.badge1_display, page_player.badge2_display, page_player.badge3_display, page_player.badge4_display]
+    show_badges = []
+    #If page user has badges
     if badge_count > 0:
         for achievement in achievement_list:
+            #For all achievements, check what level they are and record number of broze silver and gold
             if achievement.badge.level == 'bronze':
                 levels[0]+=1
             elif achievement.badge.level == 'silver':
                 levels[1]+=1
             else:
                 levels[2]+=1
+            #Add badge to badgelist
             badge_list.append(achievement.badge)
-                 
-    	if badge_count == 1:
-        	show_badges.append(badge_list[player.badge1_display])
-    	elif badge_count ==  2:
-        	show_badges.append(badge_list[player.badge1_display])
-        	show_badges.append(badge_list[player.badge2_display])
-    	elif badge_count == 3:
-        	show_badges.append(badge_list[player.badge1_display])
-        	show_badges.append(badge_list[player.badge2_display])
-        	show_badges.append(badge_list[player.badge3_display])
-    	else:
-        	show_badges.append(badge_list[player.badge1_display])
-        	show_badges.append(badge_list[player.badge2_display])
-        	show_badges.append(badge_list[player.badge3_display])
-        	show_badges.append(badge_list[player.badge4_display])
-        
-    friends_list = player.split_friends()
+
+        #Add badges to badge showcase
+        n = 0
+        while n < 4 and n < badge_count:
+            show_badges.append(badge_list[show_badge_number[n]])
+            n+=1
+    #Set friendList
+    friends_list = page_player.split_friends()
     friends_user_list = []
     for friend in friends_list:
         try:
@@ -214,27 +290,25 @@ def userProfile(request, user_name):
             friends_user_list.append(friend)
         except:
             n = 0
+
         
-    context_dict = {'user_username':user.username, 'user_email':user.email,
-                    'user_games_played':player.games_played,
-                    'user_most_days':player.most_days_survived,
-                    'user_most_kills':player.most_kills,
-                    'user_most_people':player.most_people,
-                    'user_all_kills':player.kills_all_time, 
-                    'user_all_days':player.days_all_time, 
-                    'user_all_people':player.people_all_time, 
-                    'user_avg_days':player.avg_days,
-                    'user_avg_kills':player.avg_kills,
-                    'user_avg_people':player.avg_people,
+    context_dict = {'user_username':page_user.username, 'user_email':page_user.email,
+                    'user_games_played':page_player.games_played,
+                    'user_most_days':page_player.most_days_survived,
+                    'user_most_kills':page_player.most_kills,
+                    'user_most_people':page_player.most_people,
+                    'user_all_kills':page_player.kills_all_time, 
+                    'user_all_days':page_player.days_all_time, 
+                    'user_all_people':page_player.people_all_time, 
+                    'user_avg_days':page_player.avg_days,
+                    'user_avg_kills':page_player.avg_kills,
+                    'user_avg_people':page_player.avg_people,
                     'user_badges':badge_list,
                     'user_badge_levels': levels,
                     'user_badge_count':badge_count,
                     'show_badges' :show_badges,
                     'friends' :friends_user_list}
 
-
-
-    
     return render(request, 'Zombies/userProfile.html', context_dict)
     
 def new(request):
