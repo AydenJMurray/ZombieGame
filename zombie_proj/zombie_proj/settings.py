@@ -27,7 +27,7 @@ LOGIN_URL = '/accounts/login/'
 SECRET_KEY = 'wq**2v717cxquew9u*am(34k3(etk1i+ydn&_@7s!zhxfdw@$t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
