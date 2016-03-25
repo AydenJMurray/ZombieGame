@@ -373,3 +373,7 @@ def howto(request):
     return render(request, 'Zombies/help.html')
 
 
+def player404(request):
+    return render(request, 'Zombies/player404.html')
+
+
