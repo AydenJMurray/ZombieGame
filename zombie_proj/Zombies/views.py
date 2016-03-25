@@ -244,10 +244,11 @@ def userProfile(request, user_name):
         page_player_friendreq = page_player.friend_requests
         curr_player_friendreq = curr_player.friend_requests
         loggedin = True
+        form = AddForm(instance=curr_player)
+
     except:
         loggedin = False
 
-    form = AddForm(instance=curr_player)
     #If clicked add friend, and user is not on profile users friend requests, and user is not in profile users friends
     if loggedin and(request.method == 'POST') and (curr_player.user.username not in page_player.friend_requests) and (curr_player.user.username not in page_player.friends):
         #Add to friend requests
@@ -326,8 +327,8 @@ def userProfile(request, user_name):
             friend = ''
 
     #Get button state
+    button_state = ""
     if loggedin:
-        button_state = ""
         A=page_player.user.username
         B=curr_player.user.username
         C=page_player.friends
