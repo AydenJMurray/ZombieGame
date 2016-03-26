@@ -14,5 +14,7 @@ Clone this repository and create a new virtual environment using the "requiremen
 To populate the datatbase with example users and data, run the python file "populate_game" found in the "zombie_proj" directory.
 This population script adds a number of "users" to the database, allowing sample data to be displayed on the leaderboards.
 
-Three users are available to log in as, these users are "bob", "jill" and "jen" and their passwords are their usernames.
+To see the full functionality of the user profiles such as friends and badges, a profile with username: "Jamie" and password "jamie" is available.
+
+Three other users are also available to log in as, these users are "bob", "jill" and "jen" and their passwords are their usernames.
 
